@@ -119,16 +119,8 @@
 				E94E150E19B8F3CF004B01E5 /* Classes */,
 				E94E150D19B8F3BE004B01E5 /* Constants */,
 				E94E150C19B8F3B7004B01E5 /* Resources */,
-				E94E14DB19B8F375004B01E5 /* Supporting Files */,
 			);
 			path = MyLocations;
-			sourceTree = "<group>";
-		};
-		E94E14DB19B8F375004B01E5 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		E94E14FC19B8F375004B01E5 /* MyLocationsTests */ = {
