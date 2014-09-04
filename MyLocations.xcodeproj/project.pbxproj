@@ -128,7 +128,7 @@
 			isa = PBXGroup;
 			children = (
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		E94E14FC19B8F375004B01E5 /* MyLocationsTests */ = {
@@ -146,7 +146,7 @@
 				E94E14FE19B8F375004B01E5 /* MyLocationsTests-Info.plist */,
 				E94E14FF19B8F375004B01E5 /* InfoPlist.strings */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		E94E150C19B8F3B7004B01E5 /* Resources */ = {
@@ -156,14 +156,14 @@
 				E94E151819B8F43A004B01E5 /* Other-Sources */,
 				E94E151719B8F427004B01E5 /* Storyboards */,
 			);
-			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		E94E150D19B8F3BE004B01E5 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Constants;
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		E94E150E19B8F3CF004B01E5 /* Classes */ = {
@@ -177,28 +177,28 @@
 				E94E151119B8F3E3004B01E5 /* DataSources */,
 				E94E151019B8F3DE004B01E5 /* Controllers */,
 			);
-			name = Classes;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		E94E150F19B8F3D4004B01E5 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Categories;
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		E94E151019B8F3DE004B01E5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		E94E151119B8F3E3004B01E5 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = DataSources;
+			path = DataSources;
 			sourceTree = "<group>";
 		};
 		E94E151219B8F3F9004B01E5 /* Delegates */ = {
@@ -207,14 +207,14 @@
 				E94E14E319B8F375004B01E5 /* AppDelegate.h */,
 				E94E14E419B8F375004B01E5 /* AppDelegate.m */,
 			);
-			name = Delegates;
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		E94E151319B8F3FE004B01E5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E94E151419B8F404004B01E5 /* ViewControllers */ = {
@@ -223,21 +223,21 @@
 				E94E151A19B8F494004B01E5 /* Second */,
 				E94E151919B8F490004B01E5 /* First */,
 			);
-			name = ViewControllers;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		E94E151519B8F40A004B01E5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E94E151619B8F40D004B01E5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		E94E151719B8F427004B01E5 /* Storyboards */ = {
@@ -245,7 +245,7 @@
 			children = (
 				E94E14E619B8F375004B01E5 /* Main.storyboard */,
 			);
-			name = Storyboards;
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		E94E151819B8F43A004B01E5 /* Other-Sources */ = {
@@ -256,7 +256,7 @@
 				E94E14E019B8F375004B01E5 /* main.m */,
 				E94E14E219B8F375004B01E5 /* MyLocations-Prefix.pch */,
 			);
-			name = "Other-Sources";
+			path = "Other-Sources";
 			sourceTree = "<group>";
 		};
 		E94E151919B8F490004B01E5 /* First */ = {
@@ -265,7 +265,7 @@
 				E94E14E919B8F375004B01E5 /* FirstViewController.h */,
 				E94E14EA19B8F375004B01E5 /* FirstViewController.m */,
 			);
-			name = First;
+			path = First;
 			sourceTree = "<group>";
 		};
 		E94E151A19B8F494004B01E5 /* Second */ = {
@@ -274,7 +274,7 @@
 				E94E14EC19B8F375004B01E5 /* SecondViewController.h */,
 				E94E14ED19B8F375004B01E5 /* SecondViewController.m */,
 			);
-			name = Second;
+			path = Second;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -503,8 +503,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MyLocations/MyLocations-Prefix.pch";
-				INFOPLIST_FILE = "MyLocations/MyLocations-Info.plist";
+				GCC_PREFIX_HEADER = "MyLocations/Resources/Other-Sources/MyLocations-Prefix.pch";
+				INFOPLIST_FILE = "MyLocations/Resources/Other-Sources/MyLocations-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -516,8 +516,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MyLocations/MyLocations-Prefix.pch";
-				INFOPLIST_FILE = "MyLocations/MyLocations-Info.plist";
+				GCC_PREFIX_HEADER = "MyLocations/Resources/Other-Sources/MyLocations-Prefix.pch";
+				INFOPLIST_FILE = "MyLocations/Resources/Other-Sources/MyLocations-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -533,12 +533,12 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MyLocations/MyLocations-Prefix.pch";
+				GCC_PREFIX_HEADER = "MyLocations/Resources/Other-Sources/MyLocations-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "MyLocationsTests/MyLocationsTests-Info.plist";
+				INFOPLIST_FILE = "MyLocationsTests/Supporting Files/MyLocationsTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -555,8 +555,8 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MyLocations/MyLocations-Prefix.pch";
-				INFOPLIST_FILE = "MyLocationsTests/MyLocationsTests-Info.plist";
+				GCC_PREFIX_HEADER = "MyLocations/Resources/Other-Sources/MyLocations-Prefix.pch";
+				INFOPLIST_FILE = "MyLocationsTests/Supporting Files/MyLocationsTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -582,6 +582,7 @@
 				E94E150819B8F375004B01E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E94E150919B8F375004B01E5 /* Build configuration list for PBXNativeTarget "MyLocationsTests" */ = {
 			isa = XCConfigurationList;
@@ -590,6 +591,7 @@
 				E94E150B19B8F375004B01E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
