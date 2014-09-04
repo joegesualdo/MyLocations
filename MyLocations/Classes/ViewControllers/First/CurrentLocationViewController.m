@@ -9,10 +9,6 @@
 #import "CurrentLocationViewController.h"
 
 @interface CurrentLocationViewController ()
-{
-  // The CLLocationManager is the object that will give you the GPS coordinates.
-  CLLocationManager *_locationManager;
-}
 
 @end
 
@@ -20,14 +16,15 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+  [super viewDidLoad];
+  [self updateLabels];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
-//  This create The CLLocationManager variable we defined above (_locationManager) object.
+//  This create The CLLocationManager property we defined (self.locationManager) object.
 - (id)initWithCoder:(NSCoder *)aDecoder {
   if ((self = [super initWithCoder:aDecoder])) {
-    _locationManager = [[CLLocationManager alloc] init];
+    self.locationManager = [[CLLocationManager alloc] init];
   }
   return self;
 }
@@ -40,15 +37,46 @@
 
 -(void)getLocation:(id)sender
 {
-  // tells the location manager that the view controller is its delegate
-  _locationManager.delegate = self;
-  // tells the location manger that you want locations with an accuracy of up to ten meters.
-  _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-  // The new CLLocationManager object doesn’t give out GPS coordinates right away. To begin receiving coordinates, you have to call the startUpdatingLocation method first.
-  // from that moment you call startUpdatingLocation it will send location updates to the delegate, i.e. the view controller.
-  [_locationManager startUpdatingLocation];
+  [self startLocationManager];
+  [self updateLabels];
 }
 
+
+// If there is a location object (self.location is not nil) then this converts the latitude and longitude, which are values with datatype double, into strings and put them into the labels.
+- (void)updateLabels {
+  if (self.location != nil) {
+   // The %.8f format specifier in stringWithFormat does the same thing as the %f that you’ve seen earlier: it takes a decimal number and puts it in the string. The .8 part means that there should always be 8 digits behind the decimal point.
+    self.latitudeLabel.text =
+        [NSString stringWithFormat:@"%.8f", self.location.coordinate.latitude];
+    self.longitudeLabel.text =
+        [NSString stringWithFormat:@"%.8f", self.location.coordinate.longitude];
+    self.tagButton.hidden = NO;
+    self.messageLabel.text = @"";
+  } else {
+    // This else statement determines what to put in the messageLabel at the top of the screen. It uses a bunch of if-statements to figure out what the current status of the app is.
+    self.latitudeLabel.text = @"";
+    self.longitudeLabel.text = @"";
+    self.addressLabel.text = @"";
+    self.tagButton.hidden = YES;
+    NSString *statusMessage;
+    if (self.lastLocationError != nil) {
+      if ([self.lastLocationError.domain isEqualToString:kCLErrorDomain]
+          && self.lastLocationError.code == kCLErrorDenied) {
+        statusMessage = @"Location Services Disabled";
+      } else {
+        statusMessage = @"Error Getting Location";
+      }
+    } else if (![CLLocationManager locationServicesEnabled]) {
+      statusMessage = @"Location Services Disabled";
+    } else if (self.updatingLocation) {
+      statusMessage = @"Searching...";
+    } else {
+      statusMessage = @"Press the Button to Start";
+    }
+    self.messageLabel.text = statusMessage;
+
+  }
+}
 #pragma mark - CLLocationManagerDelegate
 // These are the delegate methods for the location manager.
 
@@ -59,12 +87,63 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
   NSLog(@"didFailWithError %@", error);
+  // The kCLErrorLocationUnknown error means the location manager was unable to obtain a location right now, but that doesn’t mean all is lost. It might just need another second or so to get an uplink to the GPS satellite. In the mean time it’s letting you know that for now it could not get any location information. When you get this error, you will simply keep trying until you do find a location or receive a more serious error.
+  // So if we get a kCLErrorLocationUnknow, we return and try again, we don't execute the methods below
+  if (error.code == kCLErrorLocationUnknown) {
+    return;
+  }
+  // If we get an error that is other thatn kCErrorLocationunknow, the the following method are executed
+  
+  // To conserve battery power the app really should power down the iPhone’s radios as soon as it doesn’t need them anymore. If obtaining a location appears to be impossible for wherever the user currently is, then you’ll tell the location manager to stop.
+  [self stopLocationManager];
+  //  store the error object into a new instance variable, lastLocationError. That way, you can look up later what kind of error you were dealing with.
+  self.lastLocationError = error;
+  [self updateLabels];
 }
 
+- (void)startLocationManager {
+  if ([CLLocationManager locationServicesEnabled]) {
+    
+  // tells the location manager that the view controller is its delegate
+    
+  self.locationManager.delegate = self;
+    
+  // tells the location manger that you want locations with an accuracy of up to ten meters.
+    
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    
+  // The new CLLocationManager object doesn’t give out GPS coordinates right away. To begin receiving coordinates, you have to call the startUpdatingLocation method first.
+  // from that moment you call startUpdatingLocation it will send location updates to the delegate, i.e. the view controller.
+    
+  [self.locationManager startUpdatingLocation];
+  self.updatingLocation = YES;
+  }
+}
+
+// To conserve battery power the app really should power down the iPhone’s radios as soon as it doesn’t need them anymore. If obtaining a location appears to be impossible for wherever the user currently is, then you’ll tell the location manager to stop.
+- (void)stopLocationManager {
+  // checks whether the boolean variable updatingLocation is YES or NO. If it is NO, then the location manager wasn’t currently active and there’s no need to stop it. The reason for having this _updatingLocation variable is that you are going to change the appearance of the Get My Location button and the status message label when the app is trying to obtain a location fix, to let the user know the app is working on it.
+  if (self.updatingLocation) {
+    [self.locationManager stopUpdatingLocation];
+    self.locationManager.delegate = nil;
+    self.updatingLocation = NO;
+  }
+}
+
+// didUpdateLocations is called when the location manager was successfully able to obtain a location
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+  //didUpdateLocations delegate method gives you an array of CLLocation objects that contain the current latitude and longitude coordinates of the user. (These objects also have some additional information, such as the altitude and speed, but you don’t use those in this app.)
+  // You’ll take the last CLLocation object from the array – because that is the most recent update – and display its coordinates in the labels that you added to the screen earlier.
   CLLocation *newLocation = [locations lastObject];
   
   NSLog(@"didUpdateLocations %@", newLocation);
+  
+  self.location = newLocation;
+  
+  // clear out the old error state. If you receive a valid coordinate, then whatever previous error you may have encountered is no longer applicable.
+  self.lastLocationError = nil;
+  
+  [self updateLabels];
 }
 @end
