@@ -115,14 +115,10 @@
 		E94E14DA19B8F375004B01E5 /* MyLocations */ = {
 			isa = PBXGroup;
 			children = (
-				E94E14E319B8F375004B01E5 /* AppDelegate.h */,
-				E94E14E419B8F375004B01E5 /* AppDelegate.m */,
-				E94E14E619B8F375004B01E5 /* Main.storyboard */,
-				E94E14E919B8F375004B01E5 /* FirstViewController.h */,
-				E94E14EA19B8F375004B01E5 /* FirstViewController.m */,
-				E94E14EC19B8F375004B01E5 /* SecondViewController.h */,
-				E94E14ED19B8F375004B01E5 /* SecondViewController.m */,
-				E94E14EF19B8F375004B01E5 /* Images.xcassets */,
+				E94E150F19B8F3D4004B01E5 /* Categories */,
+				E94E150E19B8F3CF004B01E5 /* Classes */,
+				E94E150D19B8F3BE004B01E5 /* Constants */,
+				E94E150C19B8F3B7004B01E5 /* Resources */,
 				E94E14DB19B8F375004B01E5 /* Supporting Files */,
 			);
 			path = MyLocations;
@@ -131,10 +127,6 @@
 		E94E14DB19B8F375004B01E5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E94E14DC19B8F375004B01E5 /* MyLocations-Info.plist */,
-				E94E14DD19B8F375004B01E5 /* InfoPlist.strings */,
-				E94E14E019B8F375004B01E5 /* main.m */,
-				E94E14E219B8F375004B01E5 /* MyLocations-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -155,6 +147,134 @@
 				E94E14FF19B8F375004B01E5 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E94E150C19B8F3B7004B01E5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E94E14EF19B8F375004B01E5 /* Images.xcassets */,
+				E94E151819B8F43A004B01E5 /* Other-Sources */,
+				E94E151719B8F427004B01E5 /* Storyboards */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		E94E150D19B8F3BE004B01E5 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
+		E94E150E19B8F3CF004B01E5 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E94E151619B8F40D004B01E5 /* Helpers */,
+				E94E151519B8F40A004B01E5 /* Views */,
+				E94E151419B8F404004B01E5 /* ViewControllers */,
+				E94E151319B8F3FE004B01E5 /* Models */,
+				E94E151219B8F3F9004B01E5 /* Delegates */,
+				E94E151119B8F3E3004B01E5 /* DataSources */,
+				E94E151019B8F3DE004B01E5 /* Controllers */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		E94E150F19B8F3D4004B01E5 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		E94E151019B8F3DE004B01E5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		E94E151119B8F3E3004B01E5 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = DataSources;
+			sourceTree = "<group>";
+		};
+		E94E151219B8F3F9004B01E5 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				E94E14E319B8F375004B01E5 /* AppDelegate.h */,
+				E94E14E419B8F375004B01E5 /* AppDelegate.m */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
+		E94E151319B8F3FE004B01E5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		E94E151419B8F404004B01E5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E94E151A19B8F494004B01E5 /* Second */,
+				E94E151919B8F490004B01E5 /* First */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E94E151519B8F40A004B01E5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		E94E151619B8F40D004B01E5 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		E94E151719B8F427004B01E5 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				E94E14E619B8F375004B01E5 /* Main.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		E94E151819B8F43A004B01E5 /* Other-Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E94E14DC19B8F375004B01E5 /* MyLocations-Info.plist */,
+				E94E14DD19B8F375004B01E5 /* InfoPlist.strings */,
+				E94E14E019B8F375004B01E5 /* main.m */,
+				E94E14E219B8F375004B01E5 /* MyLocations-Prefix.pch */,
+			);
+			name = "Other-Sources";
+			sourceTree = "<group>";
+		};
+		E94E151919B8F490004B01E5 /* First */ = {
+			isa = PBXGroup;
+			children = (
+				E94E14E919B8F375004B01E5 /* FirstViewController.h */,
+				E94E14EA19B8F375004B01E5 /* FirstViewController.m */,
+			);
+			name = First;
+			sourceTree = "<group>";
+		};
+		E94E151A19B8F494004B01E5 /* Second */ = {
+			isa = PBXGroup;
+			children = (
+				E94E14EC19B8F375004B01E5 /* SecondViewController.h */,
+				E94E14ED19B8F375004B01E5 /* SecondViewController.m */,
+			);
+			name = Second;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
