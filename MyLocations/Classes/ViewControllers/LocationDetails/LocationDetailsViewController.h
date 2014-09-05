@@ -16,4 +16,6 @@
 // CLPlacemark contains the address information – street name, city name, and so on – that you’ve obtained through reverse geocoding.
 @property (nonatomic, strong) CLPlacemark *placemark;
 
+@property(strong, nonatomic)NSString *descriptionText;
+
 @end

@@ -8,7 +8,7 @@
 
 #import "LocationDetailsViewController.h"
 
-@interface LocationDetailsViewController ()
+@interface LocationDetailsViewController () <UITextViewDelegate>
 
 // Why are we putting the properties in the class extension instead of the header file?
 // A class extension is an addition to the @interface section of the class, but one that you keep hidden. allows you to move your outlet properties into the .m file, to hide them from the other objects in your app.
@@ -22,6 +22,14 @@
 @end
 
 @implementation LocationDetailsViewController
+
+// give the self.descriptText property an initial value.
+- (id)initWithCoder:(NSCoder *)aDecoder {
+  if ((self = [super initWithCoder:aDecoder])) {
+    self.descriptionText = @"";
+  }
+  return self;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -38,6 +46,9 @@
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
+  
+  // put the context of the UITextView into the descriptionText variable
+  self.descriptionTextView.text = self.descriptionText;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -165,6 +176,7 @@
 // Why didn't we declare these done and cancel methods in the header file?
 //  If you don’t declare them inside the .h file, they will become private. In this case, there is no reason for any object outside this view controller to ever call these methods, so you might as well keep them hidden.
 - (IBAction)done:(id)sender {
+  NSLog(@"Description '%@'", self.descriptionText);
   [self closeScreen];
 }
 - (IBAction)cancel:(id)sender {
@@ -196,4 +208,18 @@
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - UITextViewDelegate
+
+// These methods simply update the contents of the self.descriptionText variable whenever the user types into the text view. Of course, those delegate methods won’t do any good if you don’t also tell the text view that it has a delegate.
+
+// shouldChangeTExtInRange delegate is called after every action in a text view (i.e add character, edit character, etc)
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+  self.descriptionText = [textView.text
+                      stringByReplacingCharactersInRange:range withString:text];
+  return YES;
+}
+- (void)textViewDidEndEditing:(UITextView *)textView {
+  self.descriptionText = textView.text;
+}
 @end
