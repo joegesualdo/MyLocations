@@ -34,13 +34,26 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+  [super viewDidLoad];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  
+  self.descriptionTextView.text = @"";
+  self.categoryLabel.text = @"";
+  self.latitudeLabel.text =
+      [NSString stringWithFormat:@"%.8f", self.coordinate.latitude];
+  self.longitudeLabel.text =
+      [NSString stringWithFormat:@"%.8f", self.coordinate.longitude];
+  if (self.placemark != nil) {
+    self.addressLabel.text = [self stringFromPlacemark:self.placemark];
+  } else {
+    self.addressLabel.text = @"No Address Found";
+  }
+  self.dateLabel.text = [self formatDate:[NSDate date]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,6 +81,8 @@
 //}
 //
 /*
+ 
+ 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
@@ -140,6 +155,24 @@
 
 #pragma mark - Helpers
 
+// Helper to format Placemark
+- (NSString *)stringFromPlacemark:(CLPlacemark *)placemark {
+  return [NSString stringWithFormat:@"%@ %@, %@, %@ %@, %@", placemark.subThoroughfare, placemark.thoroughfare, placemark.locality, placemark.administrativeArea, placemark.postalCode, placemark.country];
+}
+
+// HElper to format Date
+- (NSString *)formatDate:(NSDate *)theDate {
+  // You use NSDateFormatter class to convert the date and time that are encapsulated by the NSDate object into a human- readable string (in the user’s language and locale settings).
+  // create NSDateFormatter just once, becasause initializing it is VERY expensive, and then re-use that same object over and over. The trick is that you won’t create the NSDateFormatter object until the app actually needs it. This principle is called lazy loading and it’s a very important pattern for iOS apps.
+  // Putting the keyword static in front of a local variable declaration creates a special type of variable, a so-called static local variable. This variable keeps its value even after the method ends. The next time you call this method, the variable isn’t created anew but the existing one is used. You still can’t use the variable outside of the method (it remains local) but it will stay alive once it has been created.
+  static NSDateFormatter *formatter = nil;
+  if (formatter == nil) {
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+  }
+  return [formatter stringFromDate:theDate];
+}
 -(void)closeScreen
 {
   [self dismissViewControllerAnimated:YES completion:nil];

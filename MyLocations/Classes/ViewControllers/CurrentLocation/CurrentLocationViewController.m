@@ -7,6 +7,7 @@
 //
 
 #import "CurrentLocationViewController.h"
+#import "LocationDetailsViewController.h"
 
 @interface CurrentLocationViewController ()
 
@@ -28,6 +29,21 @@
     self.geocoder = [[CLGeocoder alloc]init];
   }
   return self;
+}
+
+#pragma mark - Segue
+
+  // When the segue is performed, the coordinate and address should be given to the Tag Location screen.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  // obtain the proper destination view controller and then set its properties.
+  if ([segue.identifier isEqualToString:@"TagLocation"]) {
+    UINavigationController *navigationController =
+        segue.destinationViewController;
+    LocationDetailsViewController *controller =
+        (LocationDetailsViewController *)navigationController.topViewController;
+    controller.coordinate = self.location.coordinate;
+    controller.placemark = self.placemark;
+  }
 }
 
 #pragma mark - IBOutlets
