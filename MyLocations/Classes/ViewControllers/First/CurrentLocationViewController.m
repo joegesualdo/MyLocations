@@ -246,7 +246,13 @@
   if (newLocation.horizontalAccuracy < 0) {
     return;
   }
-
+  
+  // This calculates the distance between the new reading and the previous reading, if there was one. If there was no previous reading, then the distance is MAXFLOAT. That is a built-in constant that represents the maximum value that a floating-point number can have. This little trick gives it a gigantic distance if this is the very first reading. You’re doing that so any of the following calculations still work even if you weren’t able to calculate a true distance yet.
+  CLLocationDistance distance = MAXFLOAT;
+  if (self.location != nil) {
+    distance = [newLocation distanceFromLocation:self.location];
+  }
+  
   // This is where you determine if the new reading is more useful than the
   // previous one. Generally speaking, Core Location starts out with a fairly
   // inaccurate reading and then gives you more and more accurate ones as time
@@ -275,8 +281,13 @@
       [self stopLocationManager];
       [self configureGetButton];
       
+      // This forces a reverse geocoding even if the app is already currently performing another geocoding request. Of course, if distance is 0, then this location is the same as the location from a previous reading and you don’t need to reverse geocode it anymore.
+      // This is done because you absolutely want the address for that final location, as that is the most accurate location you’ve found. But if some previous location was still being reverse geocoded, that step would normally be skipped. Simply by setting _performingReverseGeocoding to NO, you always force the geocoding to be done for this final coordinate.
+      if (distance > 0) {
+        self.performingReverseGeocoding = NO;
+      }
     }
-    //the app should only perform a single request at a time, so first you check whether it is not busy yet:
+    //the app should only perform a single request at a time, so first you check whether it is not busy yet
     if (!self.performingReverseGeocoding) {
       NSLog(@"*** Going to geocode");
       // start the geocoding
@@ -300,6 +311,16 @@
                     [self updateLabels];
                 }];
     }
+    // If the coordinate from this reading is not significantly different from the previous reading and it has been more than 10 seconds since you’ve received that original reading, then it’s a good point to hang up your hat and stop. It’s safe to assume you’re not going to get a better coordinate than this and you stop fetching the location.
+    // This is the improvement that was necessary to make my iPod touch stop. It wouldn’t give me a location with better accuracy than +/- 100 meters but it kept repeating the same one over and over. I picked a time limit of 10 seconds because that seemed to give good results.
+  } else if (distance < 1.0) {
+    NSTimeInterval timeInterval = [newLocation.timestamp timeIntervalSinceDate:self.location.timestamp];
+     if (timeInterval > 10) {
+        NSLog(@"*** Force done!");
+       [self stopLocationManager];
+       [self updateLabels];
+       [self configureGetButton];
+      }
   }
 }
 
