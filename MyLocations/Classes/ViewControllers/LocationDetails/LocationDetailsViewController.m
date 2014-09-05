@@ -7,6 +7,8 @@
 //
 
 #import "LocationDetailsViewController.h"
+#import "CategoryPickerViewController.h"
+
 
 @interface LocationDetailsViewController () <UITextViewDelegate>
 
@@ -27,6 +29,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
   if ((self = [super initWithCoder:aDecoder])) {
     self.descriptionText = @"";
+    self.categoryName = @"No Category";
   }
   return self;
 }
@@ -54,7 +57,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
   self.descriptionTextView.text = @"";
-  self.categoryLabel.text = @"";
+  self.categoryLabel.text = self.categoryName;
   self.latitudeLabel.text =
       [NSString stringWithFormat:@"%.8f", self.coordinate.latitude];
   self.longitudeLabel.text =
@@ -160,16 +163,7 @@
 }
 */
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - IBActions
 
@@ -182,6 +176,17 @@
 - (IBAction)cancel:(id)sender {
   [self closeScreen];
 }
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  // Will set the category on the CategoryPicket view
+  if ([segue.identifier isEqualToString:@"PickCategory"]){
+    CategoryPickerViewController *controller = segue.destinationViewController;
+    controller.selectedCategoryName = self.categoryName;
+  }
+}
+
 
 #pragma mark - Helpers
 
