@@ -133,6 +133,9 @@
 
     [self.locationManager startUpdatingLocation];
     self.updatingLocation = YES;
+    
+    // schedules the operating system to send the didTimeOut: message to self after 60 seconds. didTimeOut: is of course the name of a method that you have to provide.
+    [self performSelector:@selector(didTimeOut:) withObject:nil afterDelay:60];
   }
 }
 
@@ -148,6 +151,9 @@
   // the status message label when the app is trying to obtain a location fix,
   // to let the user know the app is working on it.
   if (self.updatingLocation) {
+    // Just as you scheduled the call to didTimeOut: from startLocationManager, you have to cancel this call from stopLocationManager just in case the location manager is stopped before the time-out fires
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didTimeOut:) object:nil];
+    
     [self.locationManager stopUpdatingLocation];
     self.locationManager.delegate = nil;
     self.updatingLocation = NO;
@@ -156,6 +162,17 @@
 }
 
 #pragma mark - Helpers
+
+- (void)didTimeOut:(id)obj {
+  NSLog(@"*** Time out"); if (self.location == nil) {
+    [self stopLocationManager];
+    
+    // error’s domain is not kCLErrorDomain because this error object does not come from Core Location but from within your own app. A domain is simply a string, so @"MyLocationsErrorDomain" will do. For the code I picked 1. The value of code doesn’t really matter at this point because you only have one custom error
+    self.lastLocationError = [NSError errorWithDomain: @"MyLocationsErrorDomain" code:1 userInfo:nil];
+    
+    [self updateLabels];
+    [self configureGetButton]; }
+}
 
 - (NSString *)stringFromPlacemark:(CLPlacemark *)thePlacemark {
   // subThoroughfare    -- is the house number
