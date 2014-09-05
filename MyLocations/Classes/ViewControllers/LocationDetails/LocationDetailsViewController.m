@@ -186,7 +186,13 @@
     controller.selectedCategoryName = self.categoryName;
   }
 }
-
+// This is an 'unwind segue'
+// But in order to make an unwind segue you need to define an action method that takes a UIStoryboardSegue parameter.
+- (IBAction)categoryPickerDidPickCategory:(UIStoryboardSegue *)segue {
+  CategoryPickerViewController *controller = segue.sourceViewController;
+  self.categoryName = controller.selectedCategoryName;
+  self.categoryLabel.text = self.categoryName;
+}
 
 #pragma mark - Helpers
 
