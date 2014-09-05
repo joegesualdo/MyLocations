@@ -21,11 +21,11 @@
   // Do any additional setup after loading the view, typically from a nib.
 }
 
-//  This create The CLLocationManager property we defined (self.locationManager)
-//  object.
+//  This create The CLLocationManager property  and CLGeoder property
 - (id)initWithCoder:(NSCoder *)aDecoder {
   if ((self = [super initWithCoder:aDecoder])) {
     self.locationManager = [[CLLocationManager alloc] init];
+    self.geocoder = [[CLGeocoder alloc]init];
   }
   return self;
 }
@@ -39,6 +39,9 @@
   } else {
     self.location = nil;
     self.lastLocationError = nil;
+    self.placemark = nil;
+    self.lastGeocodingError = nil;
+    
     [self startLocationManager];
   }
   
@@ -63,6 +66,16 @@
         [NSString stringWithFormat:@"%.8f", self.location.coordinate.longitude];
     self.tagButton.hidden = NO;
     self.messageLabel.text = @"";
+    
+    // Nest this in (self.location !=nil) because you only do the address lookup once the app has a location
+    if (self.placemark != nil) {
+      self.addressLabel.text = [self stringFromPlacemark:
+                                self.placemark];
+    } else if (self.performingReverseGeocoding) { self.addressLabel.text = @"Searching for Address...";
+    } else if (self.lastGeocodingError != nil) { self.addressLabel.text = @"Error Finding Address";
+    } else {
+      self.addressLabel.text = @"No Address Found";
+    }
   } else {
     // This else statement determines what to put in the messageLabel at the top
     // of the screen. It uses a bunch of if-statements to figure out what the
@@ -142,6 +155,20 @@
   }
 }
 
+#pragma mark - Helpers
+
+- (NSString *)stringFromPlacemark:(CLPlacemark *)thePlacemark {
+  // subThoroughfare    -- is the house number
+  // thoroughfare       -- is the street name
+  // locality           -- is the city
+  // administrativeArea -- is the state or province
+  // postalCode         -- is the zip code or postal code.
+
+  return [NSString stringWithFormat:@"%@ %@\n%@ %@ %@", thePlacemark.subThoroughfare,
+                       thePlacemark.thoroughfare, thePlacemark.locality,
+                       thePlacemark.administrativeArea,
+                       thePlacemark.postalCode];
+}
 
 #pragma mark - CLLocationManagerDelegate
 // These are the delegate methods for the location manager.
@@ -249,6 +276,32 @@
       [self configureGetButton];
       
     }
+    //the app should only perform a single request at a time, so first you check whether it is not busy yet:
+    if (!self.performingReverseGeocoding) {
+      NSLog(@"*** Going to geocode");
+      // start the geocoding
+      self.performingReverseGeocoding = YES;
+      // CLGeocoder does not use a delegate to tell you about the result, but rather a block.
+      // give it the block. Inside the block, the first thing you do is an NSLog() just so you can see what is going on.
+      [self.geocoder reverseGeocodeLocation:self.location
+                completionHandler:^(NSArray *placemarks, NSError *error) {
+                    NSLog(@"*** Found placemarks: %@, error: %@", placemarks,
+                          error);
+                  // store the error object so you can refer to it later,
+                    self.lastGeocodingError = error;
+                    if (error == nil && [placemarks count] > 0) {
+                      // If there is no error and there are objects inside the placemarks array, then you take the last one. Usually there will be only one CLPlacemark object in the array but there is the odd situation where one location coordinate may refer to more than one address. This app can only handle one address, so you’ll just pick the last one (which usually is the only one).
+                      self.placemark = [placemarks lastObject];
+                    } else {
+                      // If there was an error, you set _placemark to nil.
+                      self.placemark = nil;
+                    }
+                    self.performingReverseGeocoding = NO;
+                    [self updateLabels];
+                }];
+    }
   }
 }
+
+
 @end

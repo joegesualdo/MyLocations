@@ -11,8 +11,17 @@
 
 @interface CurrentLocationViewController : UIViewController <CLLocationManagerDelegate>
 
+// Location Manger
 @property(strong, nonatomic)CLLocationManager *locationManager;
 @property(strong,nonatomic) CLLocation *location;
+@property(nonatomic)BOOL updatingLocation;
+@property(strong, nonatomic)NSError *lastLocationError;
+
+// Geocoding
+@property(strong, nonatomic)CLGeocoder *geocoder;
+@property(strong, nonatomic)CLPlacemark *placemark;
+@property(nonatomic)BOOL performingReverseGeocoding;
+@property(strong, nonatomic)NSError *lastGeocodingError;
 
 @property(nonatomic, weak) IBOutlet UILabel *messageLabel;
 @property(nonatomic, weak) IBOutlet UILabel *latitudeLabel;
@@ -21,8 +30,7 @@
 @property(nonatomic, weak) IBOutlet UIButton *tagButton;
 @property(nonatomic, weak) IBOutlet UIButton *getButton;
 
-@property(nonatomic)BOOL updatingLocation;
-@property(strong, nonatomic)NSError *lastLocationError;
+
 
 - (void)stopLocationManager;
 - (IBAction)getLocation:(id)sender;
