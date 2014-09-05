@@ -23,6 +23,7 @@
 		E94E150119B8F375004B01E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E94E14FF19B8F375004B01E5 /* InfoPlist.strings */; };
 		E94E150319B8F375004B01E5 /* MyLocationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E94E150219B8F375004B01E5 /* MyLocationsTests.m */; };
 		E9A02DCE19B8FF6700570C58 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A02DCD19B8FF6700570C58 /* CoreLocation.framework */; };
+		E9E35B6B19BA1B8D00848955 /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E35B6A19BA1B8D00848955 /* LocationDetailsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		E94E150019B8F375004B01E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E94E150219B8F375004B01E5 /* MyLocationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyLocationsTests.m; sourceTree = "<group>"; };
 		E9A02DCD19B8FF6700570C58 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		E9E35B6919BA1B8D00848955 /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailsViewController.h; sourceTree = "<group>"; };
+		E9E35B6A19BA1B8D00848955 /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,8 +219,9 @@
 		E94E151419B8F404004B01E5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E9E35B6819BA1B5E00848955 /* LocationDetails */,
 				E94E151A19B8F494004B01E5 /* Second */,
-				E94E151919B8F490004B01E5 /* First */,
+				E94E151919B8F490004B01E5 /* CurrentLocation */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -255,13 +259,13 @@
 			path = "Other-Sources";
 			sourceTree = "<group>";
 		};
-		E94E151919B8F490004B01E5 /* First */ = {
+		E94E151919B8F490004B01E5 /* CurrentLocation */ = {
 			isa = PBXGroup;
 			children = (
 				E94E14E919B8F375004B01E5 /* CurrentLocationViewController.h */,
 				E94E14EA19B8F375004B01E5 /* CurrentLocationViewController.m */,
 			);
-			path = First;
+			path = CurrentLocation;
 			sourceTree = "<group>";
 		};
 		E94E151A19B8F494004B01E5 /* Second */ = {
@@ -271,6 +275,15 @@
 				E94E14ED19B8F375004B01E5 /* SecondViewController.m */,
 			);
 			path = Second;
+			sourceTree = "<group>";
+		};
+		E9E35B6819BA1B5E00848955 /* LocationDetails */ = {
+			isa = PBXGroup;
+			children = (
+				E9E35B6919BA1B8D00848955 /* LocationDetailsViewController.h */,
+				E9E35B6A19BA1B8D00848955 /* LocationDetailsViewController.m */,
+			);
+			path = LocationDetails;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +387,7 @@
 				E94E14E519B8F375004B01E5 /* AppDelegate.m in Sources */,
 				E94E14EB19B8F375004B01E5 /* CurrentLocationViewController.m in Sources */,
 				E94E14E119B8F375004B01E5 /* main.m in Sources */,
+				E9E35B6B19BA1B8D00848955 /* LocationDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
