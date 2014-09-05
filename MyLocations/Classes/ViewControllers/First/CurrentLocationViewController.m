@@ -33,7 +33,15 @@
 #pragma mark - IBOutlets
 
 - (void)getLocation:(id)sender {
-  [self startLocationManager];
+  
+  if (self.updatingLocation) {
+    [self stopLocationManager];
+  } else {
+    self.location = nil;
+    self.lastLocationError = nil;
+    [self startLocationManager];
+  }
+  
   [self updateLabels];
   [self configureGetButton];
 }
@@ -130,6 +138,7 @@
     [self.locationManager stopUpdatingLocation];
     self.locationManager.delegate = nil;
     self.updatingLocation = NO;
+    NSLog(@"location manager has been stopped");
   }
 }
 
