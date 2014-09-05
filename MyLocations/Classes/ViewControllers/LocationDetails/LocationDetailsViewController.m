@@ -80,18 +80,36 @@
 //    return 0;
 //}
 //
-/*
- 
- 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView
+    heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
+  if (indexPath.section == 0 && indexPath.row == 0) {
+    return 88;
+  } else if (indexPath.section == 2 && indexPath.row == 2) {
+    // 1. CGRect is a struct that describes a rectangle. A rectangle has an origin made up of an X, Y coordinate, and a size (width and height). The CGRectMake() function takes four values – x, y, width and height – and puts them into a new CGRect struct. The width value is 205 points, but the height is a whopping 10,000 points. That is done to make the rectangle tall enough to fit a lot of text.
+    CGRect rect = CGRectMake(100, 10, 205, 10000);
+    //  Once you have that initial rectangle that is way too high, you resize the label. The frame property is a CGRect that describes the position and size of a view. All UIView objects (and subclasses such as UILabel) have a frame rectangle. Changing the frame is how you can position views on the screen programmatically. Setting the frame on a multi-line UILabel has another effect: it will now word-wrap the text to fit the requested width (205 points). This works because you already set the text on the label in viewDidLoad.
+    self.addressLabel.frame = rect;
+    // Now that the label has word-wrapped its contents, you’ll have to size the label back to the proper height because you don’t want a cell that is 10,000 points tall. Remember the Size to Fit Content menu option from Interface Builder that you can use to resize a label to fit its contents? You can also do that from code with sizeToFit.
+    [self.addressLabel sizeToFit];
+    // The call to sizeToFit removed any spare space to the right and bottom of the label. You want that to happen for the height of the label but not for the width, so you put the newly calculated height back into the rect from earlier. This gives you a rectangle with an origin at X: 100, Y: 10, a width of 205, and a height that exactly fits the text.
+    rect.size.height = self.addressLabel.frame.size.height;
+    self.addressLabel.frame = rect;
+    // Now that you know how high the label is, you can add a margin (10 points at the top, 10 points at the bottom) to calculate the full height for the cell.
+    return self.addressLabel.frame.size.height + 20;
+  } else {
+    return 44;
+  }
 }
-*/
+
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+//    
+//    // Configure the cell...
+//    
+//    return cell;
+//}
 
 /*
 // Override to support conditional editing of the table view.
