@@ -30,16 +30,15 @@
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
-}
+#pragma mark - IBOutlets
 
 - (void)getLocation:(id)sender {
   [self startLocationManager];
   [self updateLabels];
   [self configureGetButton];
 }
+
+#pragma mark - UIMethods
 
 // If there is a location object (self.location is not nil) then this converts
 // the latitude and longitude, which are values with datatype double, into
@@ -190,6 +189,7 @@
   CLLocation *newLocation = [locations lastObject];
 
   NSLog(@"didUpdateLocations %@", newLocation);
+  NSLog(@"horizontalAccuracy -- %f\ntimeintervalSinceNow -- %f\n", newLocation.horizontalAccuracy, [newLocation.timestamp timeIntervalSinceNow]);
 
   // If the time at which the location object was determined is too long ago (5
   // seconds in this case), then this is a so-called cached result. Instead of
