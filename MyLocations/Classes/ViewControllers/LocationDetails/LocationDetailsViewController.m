@@ -9,6 +9,7 @@
 #import "LocationDetailsViewController.h"
 #import "CategoryPickerViewController.h"
 #import "HudView.h"
+#import "Location.h"
 
 
 @interface LocationDetailsViewController () <UITextViewDelegate>
@@ -22,6 +23,8 @@
 @property(nonatomic, weak) IBOutlet UILabel *addressLabel;
 @property(nonatomic, weak) IBOutlet UILabel *dateLabel;
 
+@property(strong, nonatomic)NSDate *date;
+
 @end
 
 @implementation LocationDetailsViewController
@@ -32,6 +35,8 @@
   if ((self = [super initWithCoder:aDecoder])) {
     self.descriptionText = @"";
     self.categoryName = @"No Category";
+    //initialize a new date
+    self.date = [NSDate date];
   }
   return self;
 }
@@ -70,7 +75,7 @@
   } else {
     self.addressLabel.text = @"No Address Found";
   }
-  self.dateLabel.text = [self formatDate:[NSDate date]];
+  self.dateLabel.text = [self formatDate:self.date];
   
   // This will make hideKeyboard get called EVERYTIME you click on the location details screen
   // You simply create the gesture recognizer object, give it a method to call when that particular gesture has been observed to take place, and add the recognizer object to the view.
@@ -182,8 +187,30 @@
   // We created this hudInView method; check HudView.m
   HudView *hudView = [HudView hudInView:self.navigationController.view animated:YES];
   hudView.text = @"Tagged";
-  NSLog(@"Description '%@'", self.descriptionText);
   // By calling performSelector:withObject:afterDelay:, you schedule the closeScreen method to be called after 0.6 seconds, which leaves time for the HUD to display. So we use this instead of using [self closeScreen]
+  
+  // Save to CoreData
+  // First, you create a new Location object. This is different from how you created objects before. If Location were a regular NSObject, you would do [[Location alloc] init] to create a new instance. However, this is a Core Data managed object, and they are created in a different manner.
+  // You have to ask the NSEntityDescription class to insert a new object for your entity into the managed object context. It’s a bit of a weird way to make new objects but that’s how you do it in Core Data. The string @"Location" is the name of the entity that you added in the data model earlier.
+  Location *location = [NSEntityDescription
+    insertNewObjectForEntityForName:@"Location"
+             inManagedObjectContext:self.managedObjectContext];
+  // Once you have created the Location object, you can use it like any other object. Here you set its properties. Note that you convert the latitude and longitude into NSNumber objects using the @() notation. You don’t have to do anything special for the CLPlacemark object.
+  location.locationDescription = self.descriptionText;
+  location.category = self.categoryName;
+  location.latitude = @(self.coordinate.latitude);
+  location.longitude = @(self.coordinate.longitude);
+  location.date = self.date;
+  location.placemark = self.placemark;
+  // You now have a new Location object whose properties are set to whatever the user entered in the screen, but if you were to look in the data store at this point you’d still see no objects there. That won’t happen until you save the context. This takes any objects that were added to the context, or any managed objects that had their contents changed, and permanently saves these changes into the data store. That’s why they call the context the “scratchpad”; its changes aren’t persisted until you save them.[
+  NSError *error;
+  // What if something goes wrong with the save? The save method returns NO and you call the abort() function. True to its name, abort() will immediately kill the app and return the user to the iPhone’s Springboard. That’s a nasty surprise for the user, and therefore not recommended.
+  if (![self.managedObjectContext save:&error]) {
+    NSLog(@"Error: %@", error);
+    // making the app crash hard with abort()
+    abort();
+  }
+
   [self performSelector:@selector(closeScreen) withObject:nil afterDelay:0.6];
 }
 - (IBAction)cancel:(id)sender {

@@ -13,9 +13,10 @@
 
 // The @dynamic keyword tells the compiler that these properties will be resolved at runtime by Core Data. When you put a new value into one of these properties, Core Data will put that value into the data store for safekeeping, instead of in an instance variable. That’s all there is to it.
 @dynamic latitude;
-@dynamic logitude;
+@dynamic longitude;
 @dynamic locationDescription;
 @dynamic placemark;
 @dynamic category;
+@dynamic date;
 
 @end
