@@ -22,6 +22,7 @@
 		E94E14F919B8F375004B01E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D819B8F375004B01E5 /* UIKit.framework */; };
 		E94E150119B8F375004B01E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E94E14FF19B8F375004B01E5 /* InfoPlist.strings */; };
 		E94E150319B8F375004B01E5 /* MyLocationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E94E150219B8F375004B01E5 /* MyLocationsTests.m */; };
+		E9620A3B19BE13B000FF702E /* HudView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9620A3A19BE13B000FF702E /* HudView.m */; };
 		E9A02DCE19B8FF6700570C58 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A02DCD19B8FF6700570C58 /* CoreLocation.framework */; };
 		E9E35B6B19BA1B8D00848955 /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E35B6A19BA1B8D00848955 /* LocationDetailsViewController.m */; };
 		E9E35B6F19BA361300848955 /* CategoryPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E35B6E19BA361300848955 /* CategoryPickerViewController.m */; };
@@ -59,6 +60,8 @@
 		E94E14FE19B8F375004B01E5 /* MyLocationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyLocationsTests-Info.plist"; sourceTree = "<group>"; };
 		E94E150019B8F375004B01E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E94E150219B8F375004B01E5 /* MyLocationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyLocationsTests.m; sourceTree = "<group>"; };
+		E9620A3919BE13B000FF702E /* HudView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HudView.h; sourceTree = "<group>"; };
+		E9620A3A19BE13B000FF702E /* HudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HudView.m; sourceTree = "<group>"; };
 		E9A02DCD19B8FF6700570C58 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E9E35B6919BA1B8D00848955 /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailsViewController.h; sourceTree = "<group>"; };
 		E9E35B6A19BA1B8D00848955 /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailsViewController.m; sourceTree = "<group>"; };
@@ -233,6 +236,7 @@
 		E94E151519B8F40A004B01E5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E9620A3819BE139400FF702E /* Hud */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -279,6 +283,15 @@
 				E94E14ED19B8F375004B01E5 /* SecondViewController.m */,
 			);
 			path = Second;
+			sourceTree = "<group>";
+		};
+		E9620A3819BE139400FF702E /* Hud */ = {
+			isa = PBXGroup;
+			children = (
+				E9620A3919BE13B000FF702E /* HudView.h */,
+				E9620A3A19BE13B000FF702E /* HudView.m */,
+			);
+			name = Hud;
 			sourceTree = "<group>";
 		};
 		E9E35B6819BA1B5E00848955 /* LocationDetails */ = {
@@ -400,6 +413,7 @@
 				E94E14E519B8F375004B01E5 /* AppDelegate.m in Sources */,
 				E94E14EB19B8F375004B01E5 /* CurrentLocationViewController.m in Sources */,
 				E94E14E119B8F375004B01E5 /* main.m in Sources */,
+				E9620A3B19BE13B000FF702E /* HudView.m in Sources */,
 				E9E35B6F19BA361300848955 /* CategoryPickerViewController.m in Sources */,
 				E9E35B6B19BA1B8D00848955 /* LocationDetailsViewController.m in Sources */,
 			);

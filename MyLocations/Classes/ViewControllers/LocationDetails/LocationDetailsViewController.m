@@ -8,6 +8,7 @@
 
 #import "LocationDetailsViewController.h"
 #import "CategoryPickerViewController.h"
+#import "HudView.h"
 
 
 @interface LocationDetailsViewController () <UITextViewDelegate>
@@ -177,8 +178,13 @@
 // Why didn't we declare these done and cancel methods in the header file?
 //  If you don’t declare them inside the .h file, they will become private. In this case, there is no reason for any object outside this view controller to ever call these methods, so you might as well keep them hidden.
 - (IBAction)done:(id)sender {
+  // creates a HudView object and adds it to the navigation controller’s view with an animation.
+  // We created this hudInView method; check HudView.m
+  HudView *hudView = [HudView hudInView:self.navigationController.view animated:YES];
+  hudView.text = @"Tagged";
   NSLog(@"Description '%@'", self.descriptionText);
-  [self closeScreen];
+  // By calling performSelector:withObject:afterDelay:, you schedule the closeScreen method to be called after 0.6 seconds, which leaves time for the HUD to display. So we use this instead of using [self closeScreen]
+  [self performSelector:@selector(closeScreen) withObject:nil afterDelay:0.6];
 }
 - (IBAction)cancel:(id)sender {
   [self closeScreen];
