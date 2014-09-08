@@ -43,6 +43,7 @@
         (LocationDetailsViewController *)navigationController.topViewController;
     controller.coordinate = self.location.coordinate;
     controller.placemark = self.placemark;
+    controller.managedObjectContext = self.managedObjectContext;
   }
 }
 

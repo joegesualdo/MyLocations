@@ -19,4 +19,10 @@
 @property(strong, nonatomic)NSString *descriptionText;
 
 @property(strong, nonatomic)NSString *categoryName;
+
+#pragma mark - CoreData Properties
+
+// WE need somewhere to store the managed object context so we have reference to it later
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
 @end
