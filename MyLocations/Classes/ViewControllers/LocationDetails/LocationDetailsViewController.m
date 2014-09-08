@@ -196,7 +196,24 @@
   self.descriptionText = textView.text;
 }
 
+// The willSelectRowAtIndexPath method limits taps on rows to just the cells from the first two sections. The third section only has read-only labels anyway, so it doesn’t need to allow taps. So now When the user taps anywhere inside that first cell, the app should activate the text view, even the tap wasn’t on the text view itself. Before we had to tap in the text view, no on the cell. Anywhere you click inside that first cell should now bring up the keyboard.
+- (NSIndexPath *)tableView:(UITableView *)tableView
+    willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (indexPath.section == 0 || indexPath.section == 1) {
+    return indexPath;
+  } else {
+    return nil;
+  }
+}
+// The didSelectRowAtIndexPath handles the actual taps on the rows. You don’t need to respond to taps on the Category or Add Photo rows as these cells are connected to segues. But if the user tapped in the first row of the first section – the row with the description text view – then this will give the input focus to that text view.
+- (void)tableView:(UITableView *)tableView
+    didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (indexPath.section == 0 && indexPath.row == 0) {
+    [self.descriptionTextView becomeFirstResponder];
+  }
+}
 #pragma mark - Helpers
+
 // Helper to format Placemark
 - (NSString *)stringFromPlacemark:(CLPlacemark *)placemark {
   return [NSString stringWithFormat:@"%@ %@, %@, %@ %@, %@", placemark.subThoroughfare, placemark.thoroughfare, placemark.locality, placemark.administrativeArea, placemark.postalCode, placemark.country];
