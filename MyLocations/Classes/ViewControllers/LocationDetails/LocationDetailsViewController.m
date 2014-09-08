@@ -70,6 +70,26 @@
     self.addressLabel.text = @"No Address Found";
   }
   self.dateLabel.text = [self formatDate:[NSDate date]];
+  
+  // This will make hideKeyboard get called EVERYTIME you click on the location details screen
+  // You simply create the gesture recognizer object, give it a method to call when that particular gesture has been observed to take place, and add the recognizer object to the view.
+  // Here you’ve chosen the message hideKeyboard: to be sent when a tap is recognized anywhere in the table view, so you also have to implement that method.
+  UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc]
+                                               initWithTarget:self action:@selector(hideKeyboard:)];
+  gestureRecognizer.cancelsTouchesInView = NO;
+  [self.tableView addGestureRecognizer:gestureRecognizer];
+}
+
+// Whenever the user taps somewhere in the table view, the gesture recognizer calls this method. It also passes a reference to itself as the parameter, which is handy because now you can ask gestureRecognizer where the tap happened.
+- (void)hideKeyboard:(UIGestureRecognizer *)gestureRecognizer {
+  // CGPoint is another common struct that you see all the time in UIKit. It contains two fields, x and y, that describe a position on the screen. Using this CGPoint, you ask the table view which index-path is currently displayed at that position. This is important because you obviously don’t want to hide the keyboard if the user tapped in the row with the description text view! If the user tapped anywhere else, you do hide the keyboard.
+  CGPoint point = [gestureRecognizer locationInView:self.tableView];
+  NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+  if (indexPath != nil && indexPath.section == 0 && indexPath.row == 0) {
+    return;
+  }
+  [self.descriptionTextView resignFirstResponder];
+  NSLog(@"hideKeyboard was called");
 }
 
 - (void)didReceiveMemoryWarning
