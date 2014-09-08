@@ -25,6 +25,7 @@
 
 @implementation LocationDetailsViewController
 
+// ??? What does initWithCoder do here?
 // give the self.descriptText property an initial value.
 - (id)initWithCoder:(NSCoder *)aDecoder {
   if ((self = [super initWithCoder:aDecoder])) {
@@ -34,6 +35,7 @@
   return self;
 }
 
+// ??? What's the difference betweeen initWithStyle and initWithCoder?
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -78,22 +80,56 @@
 
 #pragma mark - Table view data source
 
-// Commenting out these two methods because they aren't needed when we have static cells
-
+// Commenting out these methods because they aren't needed when we have static cells
+//
 //- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 //{
 //#warning Potentially incomplete method implementation.
 //    // Return the number of sections.
 //    return 0;
 //}
-//
 //- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 //{
 //#warning Incomplete method implementation.
 //    // Return the number of rows in the section.
 //    return 0;
 //}
-//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+//    
+//    // Configure the cell...
+//    
+//    return cell;
+//}
+// Override to support conditional editing of the table view.
+//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    // Return NO if you do not want the specified item to be editable.
+//    return YES;
+//}
+//// Override to support editing the table view.
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        // Delete the row from the data source
+//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+//        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+//    }   
+//}
+//// Override to support rearranging the table view.
+//- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+//{
+//}
+//// Override to support conditional rearranging of the table view.
+//- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    // Return NO if you do not want the item to be re-orderable.
+//    return YES;
+//}
+
+// Since we want our cells to be different sizes, we implement the delegate method heightForrowAtIndex
 - (CGFloat)tableView:(UITableView *)tableView
     heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -115,55 +151,6 @@
     return 44;
   }
 }
-
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-//    
-//    // Configure the cell...
-//    
-//    return cell;
-//}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 
 #pragma mark - IBActions
 
@@ -194,8 +181,22 @@
   self.categoryLabel.text = self.categoryName;
 }
 
-#pragma mark - Helpers
+#pragma mark - UITextViewDelegate
 
+// These methods simply update the contents of the self.descriptionText variable whenever the user types into the text view. Of course, those delegate methods won’t do any good if you don’t also tell the text view that it has a delegate.
+
+// shouldChangeTExtInRange delegate is called after every action in a text view (i.e add character, edit character, etc)
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+  self.descriptionText = [textView.text
+                      stringByReplacingCharactersInRange:range withString:text];
+  return YES;
+}
+- (void)textViewDidEndEditing:(UITextView *)textView {
+  self.descriptionText = textView.text;
+}
+
+#pragma mark - Helpers
 // Helper to format Placemark
 - (NSString *)stringFromPlacemark:(CLPlacemark *)placemark {
   return [NSString stringWithFormat:@"%@ %@, %@, %@ %@, %@", placemark.subThoroughfare, placemark.thoroughfare, placemark.locality, placemark.administrativeArea, placemark.postalCode, placemark.country];
@@ -219,18 +220,4 @@
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - UITextViewDelegate
-
-// These methods simply update the contents of the self.descriptionText variable whenever the user types into the text view. Of course, those delegate methods won’t do any good if you don’t also tell the text view that it has a delegate.
-
-// shouldChangeTExtInRange delegate is called after every action in a text view (i.e add character, edit character, etc)
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-  self.descriptionText = [textView.text
-                      stringByReplacingCharactersInRange:range withString:text];
-  return YES;
-}
-- (void)textViewDidEndEditing:(UITextView *)textView {
-  self.descriptionText = textView.text;
-}
 @end
