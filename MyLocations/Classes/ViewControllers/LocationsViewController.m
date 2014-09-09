@@ -57,6 +57,10 @@
   // Fixes nasty bug with Core Data in iOS 7.0 where app crashes after you tag a location then try to view it in locations table
   [NSFetchedResultsController deleteCacheWithName:@"Locations"];
   [self performFetch];
+  
+  // Many apps have an Edit button in the navigation bar that triggers a mode that also lets you delete (and sometimes move) rows. This is extremely easy to add.
+  // This is all you need to make the list editable
+  self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 - (void)performFetch {
   // Now that you have the fetch request, you can tell the context to execute it. The executeFetchRequest method returns an NSArray with the sorted objects, or nil in case of an error. Since those errors shouldn’t really happen, you use the special macro to handle that situation.
@@ -101,6 +105,21 @@
   return cell;
 }
 
+//This method gets the Location object from the selected row and then tells the context to delete that object. This will trigger the NSFetchedResultsController to send a notification to the delegate (NSFetchedResultsChangeDelete), which then removes the corresponding row from the table. That’s all you need to do!
+- (void)tableView:(UITableView *)tableView
+    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+     forRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (editingStyle == UITableViewCellEditingStyleDelete) {
+    Location *location =
+        [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self.managedObjectContext deleteObject:location];
+    NSError *error;
+    if (![self.managedObjectContext save:&error]) {
+      NSLog(@"%@", [error description]);
+      return;
+    }
+  }
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
