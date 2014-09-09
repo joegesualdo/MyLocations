@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E920DE4519BF68CF00D87BAA /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E920DE4419BF68CF00D87BAA /* LocationCell.m */; };
 		E94E14D519B8F375004B01E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D419B8F375004B01E5 /* Foundation.framework */; };
 		E94E14D719B8F375004B01E5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D619B8F375004B01E5 /* CoreGraphics.framework */; };
 		E94E14D919B8F375004B01E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D819B8F375004B01E5 /* UIKit.framework */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E920DE4319BF68CF00D87BAA /* LocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
+		E920DE4419BF68CF00D87BAA /* LocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
 		E94E14D119B8F375004B01E5 /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94E14D419B8F375004B01E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E94E14D619B8F375004B01E5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -102,6 +105,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E920DE4219BF68B000D87BAA /* LocationCell */ = {
+			isa = PBXGroup;
+			children = (
+				E920DE4319BF68CF00D87BAA /* LocationCell.h */,
+				E920DE4419BF68CF00D87BAA /* LocationCell.m */,
+			);
+			name = LocationCell;
+			sourceTree = "<group>";
+		};
 		E94E14C819B8F375004B01E5 = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +258,7 @@
 		E94E151519B8F40A004B01E5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E920DE4219BF68B000D87BAA /* LocationCell */,
 				E9620A3819BE139400FF702E /* Hud */,
 			);
 			path = Views;
@@ -447,6 +460,7 @@
 				E9620A3B19BE13B000FF702E /* HudView.m in Sources */,
 				E9620A4619BE4BD100FF702E /* LocationsViewController.m in Sources */,
 				E9E35B6F19BA361300848955 /* CategoryPickerViewController.m in Sources */,
+				E920DE4519BF68CF00D87BAA /* LocationCell.m in Sources */,
 				E9E35B6B19BA1B8D00848955 /* LocationDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

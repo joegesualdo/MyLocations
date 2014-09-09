@@ -8,6 +8,7 @@
 
 #import "LocationsViewController.h"
 #import "Location.h"
+#import "LocationCell.h"
 
 @interface LocationsViewController ()
 
@@ -86,14 +87,8 @@
          cellForRowAtIndexPath: (NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Location"];
-  Location *location = self.locations[indexPath.row];
-  UILabel *descriptionLabel = (UILabel *)[cell viewWithTag:100];
-  descriptionLabel.text = location.locationDescription;
-  UILabel *addressLabel = (UILabel *)[cell viewWithTag:101];
-  addressLabel.text = [NSString stringWithFormat:@"%@ %@, %@",
-                       location.placemark.subThoroughfare,
-                       location.placemark.thoroughfare,
-                       location.placemark.locality];
+  // configureCell is a helper method we created that sets the description and address on the cell
+  [self configureCell:cell atIndexPath:indexPath];
   return cell;
 }
 
@@ -145,5 +140,26 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Helper methods
+
+// Instead of using viewWithTag to find the description and address labels, you now simply use the descriptionLabel and addressLabel properties of the cell. You first have to cast the cell variable to a LocationCell because the UITableViewCell superclass doesn’t know anything about these properties.
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+  LocationCell *locationCell = (LocationCell *)cell;
+  Location *location = self.locations[indexPath.row];
+  if ([location.locationDescription length] > 0) {
+    locationCell.descriptionLabel.text = location.locationDescription;
+  } else {
+    locationCell.descriptionLabel.text = @"(No Description)";
+  }
+  if (location.placemark != nil) {
+    locationCell.addressLabel.text =
+    [NSString stringWithFormat:@"%@ %@, %@", location.placemark.subThoroughfare, location.placemark.thoroughfare, location.placemark.locality];
+  } else {
+    locationCell.addressLabel.text = [NSString stringWithFormat:
+                                      @"Lat: %.8f, Long: %.8f", [location.latitude doubleValue], [location.longitude doubleValue]];
+  }
+}
 
 @end
