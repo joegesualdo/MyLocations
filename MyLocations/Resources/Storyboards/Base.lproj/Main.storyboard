@@ -458,8 +458,16 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Map" id="GWD-Hp-jQx">
-                                        <barButtonItem key="leftBarButtonItem" title="Locations" id="8f1-yj-bfs"/>
-                                        <barButtonItem key="rightBarButtonItem" title="User" id="SlQ-ps-2G1"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Locations" id="8f1-yj-bfs">
+                                            <connections>
+                                                <action selector="showLocations" destination="tYo-Sw-0q6" id="8VW-ZB-fdM"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="User" id="SlQ-ps-2G1">
+                                            <connections>
+                                                <action selector="showUser" destination="tYo-Sw-0q6" id="Iix-dm-Wzw"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -467,6 +475,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" id="Dyr-Gn-F1h"/>
+                    <connections>
+                        <outlet property="mapView" destination="eB9-Jh-b5D" id="vck-nz-Bv8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DBO-5B-uac" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

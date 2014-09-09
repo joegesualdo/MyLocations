@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "CurrentLocationViewController.h"
 #import "LocationsViewController.h"
+#import "MapViewController.h"
 
 @interface AppDelegate ()
 @property(nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -33,6 +34,12 @@
   LocationsViewController *locationsViewController = (LocationsViewController *)
   navigationController.viewControllers[0];
   locationsViewController.managedObjectContext = self.managedObjectContext;
+  
+  // get the map view controller and set the managedObjectContext on it
+  MapViewController *mapViewController =
+  (MapViewController *)tabBarController.viewControllers[2];
+  mapViewController.managedObjectContext = self.managedObjectContext;
+  
   
   return YES;
 }

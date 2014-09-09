@@ -11,7 +11,9 @@
 
 
 // the Location class extends NSManagedObject instead of the regular NSObject, because this represents a CoreData entity
-@interface Location : NSManagedObject
+//  MKMapView expects an array of MKAnnotation objects, not your own Location class. So when we addannotations to a map, it doesn't want data with any type, but it wants data with MKAnnotation type. Luckily, MKAnnotation is a protocol, so you can turn the Location objects into map annotations by making the class conform to that protocol.
+@interface Location : NSManagedObject <MKAnnotation>
+
 
 // Even though you chose the datatype Double for latitude and longitude, these properties are listed as NSNumber objects instead of double values. Core Data stores everything as objects, not as primitive values. Anything that you would normally use an int, float, double or BOOL for will need to become an NSNumber in Core Data.
 @property (nonatomic, retain) NSNumber * latitude;

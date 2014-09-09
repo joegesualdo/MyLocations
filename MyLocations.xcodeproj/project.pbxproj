@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E920DE4519BF68CF00D87BAA /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E920DE4419BF68CF00D87BAA /* LocationCell.m */; };
 		E920DE4719BF8E1200D87BAA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E920DE4619BF8E1200D87BAA /* MapKit.framework */; };
+		E920DE4B19BF8EF800D87BAA /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E920DE4A19BF8EF800D87BAA /* MapViewController.m */; };
 		E94E14D519B8F375004B01E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D419B8F375004B01E5 /* Foundation.framework */; };
 		E94E14D719B8F375004B01E5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D619B8F375004B01E5 /* CoreGraphics.framework */; };
 		E94E14D919B8F375004B01E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D819B8F375004B01E5 /* UIKit.framework */; };
@@ -47,6 +48,8 @@
 		E920DE4319BF68CF00D87BAA /* LocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
 		E920DE4419BF68CF00D87BAA /* LocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
 		E920DE4619BF8E1200D87BAA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E920DE4919BF8EF800D87BAA /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		E920DE4A19BF8EF800D87BAA /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		E94E14D119B8F375004B01E5 /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94E14D419B8F375004B01E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E94E14D619B8F375004B01E5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -115,6 +118,15 @@
 				E920DE4419BF68CF00D87BAA /* LocationCell.m */,
 			);
 			name = LocationCell;
+			sourceTree = "<group>";
+		};
+		E920DE4819BF8ED800D87BAA /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				E920DE4919BF8EF800D87BAA /* MapViewController.h */,
+				E920DE4A19BF8EF800D87BAA /* MapViewController.m */,
+			);
+			name = MapView;
 			sourceTree = "<group>";
 		};
 		E94E14C819B8F375004B01E5 = {
@@ -250,6 +262,7 @@
 		E94E151419B8F404004B01E5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E920DE4819BF8ED800D87BAA /* MapView */,
 				E9620A4319BE4BAF00FF702E /* Locations */,
 				E9E35B6C19BA35EE00848955 /* CategoryPicker */,
 				E9E35B6819BA1B5E00848955 /* LocationDetails */,
@@ -458,6 +471,7 @@
 				E94E14EE19B8F375004B01E5 /* SecondViewController.m in Sources */,
 				E9620A3E19BE2CDA00FF702E /* DataModel.xcdatamodeld in Sources */,
 				E94E14E519B8F375004B01E5 /* AppDelegate.m in Sources */,
+				E920DE4B19BF8EF800D87BAA /* MapViewController.m in Sources */,
 				E94E14EB19B8F375004B01E5 /* CurrentLocationViewController.m in Sources */,
 				E9620A4219BE2F7500FF702E /* Location.m in Sources */,
 				E94E14E119B8F375004B01E5 /* main.m in Sources */,
