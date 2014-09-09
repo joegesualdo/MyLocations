@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "CurrentLocationViewController.h"
+#import "LocationsViewController.h"
 
 @interface AppDelegate ()
 @property(nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -26,6 +27,13 @@
       (CurrentLocationViewController *)tabBarController.viewControllers[0];
   // This uses self.managedObjectContext to get a pointer to the App Delegate’s NSManagedObjectContext object,
   currentLocationViewController.managedObjectContext = self.managedObjectContext;
+  
+  // This looks up the LocationsViewController in the storyboard and gives it a reference to the managed object context.
+  UINavigationController *navigationController = (UINavigationController *)tabBarController.viewControllers[1];
+  LocationsViewController *locationsViewController = (LocationsViewController *)
+  navigationController.viewControllers[0];
+  locationsViewController.managedObjectContext = self.managedObjectContext;
+  
   return YES;
 }
 							

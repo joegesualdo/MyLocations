@@ -7,6 +7,7 @@
 //
 
 #import "LocationsViewController.h"
+#import "Location.h"
 
 @interface LocationsViewController ()
 
@@ -32,6 +33,33 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  
+  // NSFetchRequest =================================
+  // ask the managed object context for a list of all Location objects in the data store, sorted by date.
+  
+  // The NSFetchRequest is the object that describes which objects you’re going to fetch from the data store. To retrieve an object that you previously saved to the data store, you create a fetch request that describes the search parameters of the object – or multiple objects – that you’re looking for.
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+ 
+  //The NSEntityDescription tells the fetch request you’re looking for Location entities.
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Location"
+                                            inManagedObjectContext:self.managedObjectContext];
+  [fetchRequest setEntity:entity];
+  
+  // The NSSortDescriptor tells the fetch request to sort on the date attribute, in ascending order. In order words, the Location objects that the user added first will be at the top of the list. You can sort on any attribute here (later in this tutorial you’ll sort on the Location’s category as well).
+  NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
+  [fetchRequest setSortDescriptors:@[sortDescriptor]];
+  
+  // Now that you have the fetch request, you can tell the context to execute it. The executeFetchRequest method returns an NSArray with the sorted objects, or nil in case of an error. Since those errors shouldn’t really happen, you use the special macro to handle that situation.
+  NSError *error;
+  NSArray *foundObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+  if (foundObjects == nil) {
+    NSLog(@"%@", [error description]);
+    return;
+  }
+  
+  // If everything went well, you assign the contents of the foundObjects array to the _locations instance variable.
+  self.locations = foundObjects;
+  // END Fetch request =====================
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,22 +76,24 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return 1;
+
+- (NSInteger)tableView:(UITableView *)tableView
+    numberOfRowsInSection:(NSInteger)section {
+  return [self.locations count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  // Configure the cell...
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"location"];
+         cellForRowAtIndexPath: (NSIndexPath *)indexPath
+{
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Location"];
+  Location *location = self.locations[indexPath.row];
   UILabel *descriptionLabel = (UILabel *)[cell viewWithTag:100];
-  descriptionLabel.text = @"If you can see this";
+  descriptionLabel.text = location.locationDescription;
   UILabel *addressLabel = (UILabel *)[cell viewWithTag:101];
-  addressLabel.text = @"Then it works!";
-  return cell;
-
+  addressLabel.text = [NSString stringWithFormat:@"%@ %@, %@",
+                       location.placemark.subThoroughfare,
+                       location.placemark.thoroughfare,
+                       location.placemark.locality];
   return cell;
 }
 
