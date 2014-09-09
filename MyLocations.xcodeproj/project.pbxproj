@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E920DE4519BF68CF00D87BAA /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E920DE4419BF68CF00D87BAA /* LocationCell.m */; };
+		E920DE4719BF8E1200D87BAA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E920DE4619BF8E1200D87BAA /* MapKit.framework */; };
 		E94E14D519B8F375004B01E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D419B8F375004B01E5 /* Foundation.framework */; };
 		E94E14D719B8F375004B01E5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D619B8F375004B01E5 /* CoreGraphics.framework */; };
 		E94E14D919B8F375004B01E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D819B8F375004B01E5 /* UIKit.framework */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		E920DE4319BF68CF00D87BAA /* LocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
 		E920DE4419BF68CF00D87BAA /* LocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
+		E920DE4619BF8E1200D87BAA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E94E14D119B8F375004B01E5 /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94E14D419B8F375004B01E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E94E14D619B8F375004B01E5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -85,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E920DE4719BF8E1200D87BAA /* MapKit.framework in Frameworks */,
 				E9A02DCE19B8FF6700570C58 /* CoreLocation.framework in Frameworks */,
 				E94E14D719B8F375004B01E5 /* CoreGraphics.framework in Frameworks */,
 				E94E14D919B8F375004B01E5 /* UIKit.framework in Frameworks */,
@@ -136,6 +139,7 @@
 		E94E14D319B8F375004B01E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E920DE4619BF8E1200D87BAA /* MapKit.framework */,
 				E9A02DCD19B8FF6700570C58 /* CoreLocation.framework */,
 				E94E14D419B8F375004B01E5 /* Foundation.framework */,
 				E94E14D619B8F375004B01E5 /* CoreGraphics.framework */,
