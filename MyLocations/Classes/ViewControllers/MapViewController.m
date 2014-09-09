@@ -30,6 +30,21 @@
     [self showLocations];
   }
 }
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+  if ((self = [super initWithCoder:aDecoder])) {
+    // This tells the NSNotificationCenter to add self, i.e. this view controller, as an observer for the NSManagedObjectContextObjectsDidChangeNotification. This notification with the very long name is sent out by the managedObjectContext whenever the data store changes. In response you would like your contextDidChange: method to be called.
+    [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(contextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.managedObjectContext];
+  }
+  return self;
+}
+
+- (void)contextDidChange:(NSNotification *)notification {
+  // updateLocations to fetch all the Location objects again. This throws away all the old pins and it makes new pins for all the newly fetched Location objects. Granted, it’s not a very efficient method if there are hundreds of annotation objects, but for now it gets the job done.
+  if ([self isViewLoaded]) {
+    [self updateLocations];
+  }
+}
 //  When you press the User button, it zooms in the map to a region that is 1000 by 1000 meters (a little more than half a mile in both directions) around the user’s position:
 - (IBAction)showUser {
   MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(
@@ -171,6 +186,12 @@
     Location *location = self.locations[button.tag];
     controller.locationToEdit = location;
   }
+}
+
+// This method is called whenever a view is deallocated
+- (void)dealloc {
+  // tell the NSNotificationCenter to stop sending these notifications when the view controller is destroyed. You don’t want NSNotificationCenter to send notifications to an object that no longer exists, that’s just asking for trouble!
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
