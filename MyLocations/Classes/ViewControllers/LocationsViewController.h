@@ -11,6 +11,6 @@
 @interface LocationsViewController : UITableViewController
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong) NSArray *locations;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end
