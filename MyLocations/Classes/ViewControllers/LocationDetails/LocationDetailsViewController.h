@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Location;
 
 @interface LocationDetailsViewController : UITableViewController
 // CLLocationCoordinate2D object is new. This contains the latitude and longitude from the CLLocation object that you received from the location manager. You only need those two fields, so there’s no point in sending along the entire CLLocation object.
@@ -19,6 +20,8 @@
 @property(strong, nonatomic)NSString *descriptionText;
 
 @property(strong, nonatomic)NSString *categoryName;
+
+@property (nonatomic, strong) Location *locationToEdit;
 
 #pragma mark - CoreData Properties
 

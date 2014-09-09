@@ -9,6 +9,7 @@
 #import "LocationsViewController.h"
 #import "Location.h"
 #import "LocationCell.h"
+#import "LocationDetailsViewController.h"
 
 @interface LocationsViewController ()
 
@@ -130,7 +131,6 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -138,11 +138,17 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+  if ([segue.identifier isEqualToString:@"EditLocation"]) {
+    UINavigationController *navigationController = segue.destinationViewController;
+    LocationDetailsViewController *controller = (LocationDetailsViewController *)navigationController.topViewController;
+    controller.managedObjectContext = self.managedObjectContext;
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    Location *location = self.locations[indexPath.row];
+    controller.locationToEdit = location;
+  }
 }
-*/
-
 #pragma mark - Helper methods
-
 // Instead of using viewWithTag to find the description and address labels, you now simply use the descriptionLabel and addressLabel properties of the cell. You first have to cast the cell variable to a LocationCell because the UITableViewCell superclass doesn’t know anything about these properties.
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {

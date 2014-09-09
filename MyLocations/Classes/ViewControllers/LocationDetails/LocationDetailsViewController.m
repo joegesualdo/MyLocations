@@ -58,13 +58,17 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
   
+  if (self.locationToEdit != nil) {
+    self.title = @"Edit Location";
+  }
+
+  
   // put the context of the UITextView into the descriptionText variable
-  self.descriptionTextView.text = self.descriptionText;
-    
+  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
-  self.descriptionTextView.text = @"";
+  self.descriptionTextView.text = self.descriptionText;
   self.categoryLabel.text = self.categoryName;
   self.latitudeLabel.text =
       [NSString stringWithFormat:@"%.8f", self.coordinate.latitude];
@@ -187,14 +191,22 @@
   // We created this hudInView method; check HudView.m
   HudView *hudView = [HudView hudInView:self.navigationController.view animated:YES];
   hudView.text = @"Tagged";
-  // By calling performSelector:withObject:afterDelay:, you schedule the closeScreen method to be called after 0.6 seconds, which leaves time for the HUD to display. So we use this instead of using [self closeScreen]
   
+  Location *location = nil;
+  // only ask Core Data for a new Location object if you don’t already have one. You also make the text in the HUD say “Updated” when the user is editing an existing Location
+  if (self.locationToEdit != nil) {
+    hudView.text = @"Updated";
+    location = self.locationToEdit;
+  } else {
+    hudView.text = @"Tagged";
   // Save to CoreData
   // First, you create a new Location object. This is different from how you created objects before. If Location were a regular NSObject, you would do [[Location alloc] init] to create a new instance. However, this is a Core Data managed object, and they are created in a different manner.
   // You have to ask the NSEntityDescription class to insert a new object for your entity into the managed object context. It’s a bit of a weird way to make new objects but that’s how you do it in Core Data. The string @"Location" is the name of the entity that you added in the data model earlier.
-  Location *location = [NSEntityDescription
-    insertNewObjectForEntityForName:@"Location"
-             inManagedObjectContext:self.managedObjectContext];
+    location = [NSEntityDescription
+        insertNewObjectForEntityForName:@"Location"
+                 inManagedObjectContext:self.managedObjectContext];
+  }
+  
   // Once you have created the Location object, you can use it like any other object. Here you set its properties. Note that you convert the latitude and longitude into NSNumber objects using the @() notation. You don’t have to do anything special for the CLPlacemark object.
   location.locationDescription = self.descriptionText;
   location.category = self.categoryName;
@@ -211,6 +223,7 @@
     abort();
   }
 
+  // By calling performSelector:withObject:afterDelay:, you schedule the closeScreen method to be called after 0.6 seconds, which leaves time for the HUD to display. So we use this instead of using [self closeScreen]
   [self performSelector:@selector(closeScreen) withObject:nil afterDelay:0.6];
 }
 - (IBAction)cancel:(id)sender {
@@ -265,6 +278,21 @@
     [self.descriptionTextView becomeFirstResponder];
   }
 }
+
+- (void)setLocationToEdit:(Location *)newLocationToEdit {
+  if (_locationToEdit != newLocationToEdit) {
+    _locationToEdit = newLocationToEdit;
+    self.descriptionText = _locationToEdit.locationDescription;
+    self.categoryName = _locationToEdit.category;
+    self.date = _locationToEdit.date;
+    self.coordinate =
+        CLLocationCoordinate2DMake([_locationToEdit.latitude doubleValue],
+                                   [_locationToEdit.longitude doubleValue]);
+    
+    self.placemark = _locationToEdit.placemark;
+  }
+}
+
 #pragma mark - Helpers
 
 // Helper to format Placemark
@@ -285,6 +313,7 @@
   }
   return [formatter stringFromDate:theDate];
 }
+
 -(void)closeScreen
 {
   [self dismissViewControllerAnimated:YES completion:nil];
