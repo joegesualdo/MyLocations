@@ -10,7 +10,7 @@
 #import "Location.h"
 #import "LocationDetailsViewController.h"
 
-@interface MapViewController () <MKMapViewDelegate>
+@interface MapViewController () <MKMapViewDelegate, UINavigationBarDelegate>
 
 // This has a private outlet property for the map view and two action methods that will be connected to the buttons in the navigation bar. The view controller is also the delegate of the map view.
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -192,6 +192,13 @@
 - (void)dealloc {
   // tell the NSNotificationCenter to stop sending these notifications when the view controller is destroyed. You don’t want NSNotificationCenter to send notifications to an object that no longer exists, that’s just asking for trouble!
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - UINavigationBarDelegate
+
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
+// This tells the navigation bar to extend under the status bar area.
+  return UIBarPositionTopAttached;
 }
 
 @end
