@@ -452,6 +452,9 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="eB9-Jh-b5D">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="tYo-Sw-0q6" id="sqO-ka-5Th"/>
+                                </connections>
                             </mapView>
                             <navigationBar contentMode="scaleToFill" id="YNT-pz-djf">
                                 <rect key="frame" x="0.0" y="18" width="320" height="44"/>
@@ -477,6 +480,7 @@
                     <tabBarItem key="tabBarItem" title="Map" id="Dyr-Gn-F1h"/>
                     <connections>
                         <outlet property="mapView" destination="eB9-Jh-b5D" id="vck-nz-Bv8"/>
+                        <segue destination="HQb-T6-c8Y" kind="modal" identifier="EditLocation" id="vqX-0A-DLh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DBO-5B-uac" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -493,6 +497,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="w5o-i8-NhU"/>
+        <segue reference="vqX-0A-DLh"/>
     </inferredMetricsTieBreakers>
 </document>

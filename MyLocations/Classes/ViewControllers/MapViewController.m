@@ -7,6 +7,8 @@
 //
 
 #import "MapViewController.h"
+#import "Location.h"
+#import "LocationDetailsViewController.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 
@@ -111,6 +113,65 @@
   // Once you’ve obtained the Location objects, you call addAnnotations on the map view to add a pin for each location on the map.
   [self.mapView addAnnotations:self.locations];
 }
+
+#pragma mark - MKMapViewDelegate
+
+// This is a delegate method you need to customize the annotation of locations on map. For example, we change the pin color to green and add an info button
+- (MKAnnotationView *)mapView:(MKMapView *)mapView
+            viewForAnnotation:(id<MKAnnotation>)annotation {
   
+  // Because MKAnnotation is a protocol, there may be other objects than the Location object that want to be annotations on the map. An example is the blue dot that represents the user’s current location. You should leave such annotations alone, so you use the isKindOfClass: method to determine whether the annotation is really a Location object. If so, you continue.
+  if ([annotation isKindOfClass:[Location class]]) {
+    // This should look very familiar to creating a table view cell. You ask the map view to re-use an annotation view object. If it cannot find a recyclable annotation view, then you create a new one. Note that you’re not limited to MKPinAnnotationView. This is the standard annotation view class, but you can also create your own MKAnnotationView subclass and make it look like anything you want. Pins are only one option.
+    static NSString *identifier = @"Location";
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)
+        [self.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+    if (annotationView == nil) {
+      annotationView =
+          [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                          reuseIdentifier:identifier];
+      // This just sets some properties to configure the look and feel of the annotation view. Previously the pins were red, but you make them green here.
+      annotationView.enabled = YES;
+      annotationView.canShowCallout = YES;
+      annotationView.animatesDrop = NO;
+      annotationView.pinColor = MKPinAnnotationColorGreen;
+      // This is the interesting bit. You create a new UIButton object that looks like a detail disclosure button (a blue circled i). You use the target-action pattern to hook up the button’s “Touch Up Inside” event with the showLocationDetails: method, and add the button to the annotation view’s accessory view.
+
+      UIButton *rightButton =
+          [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+      [rightButton addTarget:self
+                      action:@selector(showLocationDetails:)
+            forControlEvents:UIControlEventTouchUpInside];
+      annotationView.rightCalloutAccessoryView = rightButton;
+    } else {
+      annotationView.annotation = annotation;
+    }
+    // Once the annotation view is constructed and configured, you obtain a reference to that detail disclosure button again and set its tag to the index of the Location object in the _locations array. That way you can find the Location object later in the showLocationDetails: method when the button is pressed.
+    UIButton *button = (UIButton *)annotationView.rightCalloutAccessoryView;
+    button.tag = [self.locations indexOfObject:(Location *)annotation];
+    return annotationView;
+  }
+  return nil;
+}
+
+- (void)showLocationDetails:(UIButton *)button {
+  // Because the segue isn’t connected to any particular control in the view controller, you have to trigger it manually. You send along the button object as the sender, so you can read its tag property in prepareForSegue.
+  [self performSegueWithIdentifier:@"EditLocation" sender:button];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  if ([segue.identifier isEqualToString:@"EditLocation"]) {
+    // get the Location object to edit from the _locations array, using the tag property of the button as the index in that array.
+    UINavigationController *navigationController =
+        segue.destinationViewController;
+    LocationDetailsViewController *controller =
+        (LocationDetailsViewController *)navigationController.topViewController;
+    controller.managedObjectContext = self.managedObjectContext;
+    UIButton *button = (UIButton *)sender;
+    Location *location = self.locations[button.tag];
+    controller.locationToEdit = location;
+  }
+}
+
 @end
 
