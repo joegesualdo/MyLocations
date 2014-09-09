@@ -23,6 +23,8 @@
 
 @property (nonatomic, strong) Location *locationToEdit;
 
+@property (nonatomic, strong) UIImage *image;
+
 #pragma mark - CoreData Properties
 
 // WE need somewhere to store the managed object context so we have reference to it later

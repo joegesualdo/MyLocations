@@ -12,7 +12,8 @@
 #import "Location.h"
 
 
-@interface LocationDetailsViewController () <UITextViewDelegate>
+// The view controller must conform to both UIImagePickerControllerDelegate and UINavigationControllerDelegate for imagepicker to work, but you don’t have to implement any of the UINavigationControllerDelegate methods.
+@interface LocationDetailsViewController () <UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 // Why are we putting the properties in the class extension instead of the header file?
 // A class extension is an addition to the @interface section of the class, but one that you keep hidden. allows you to move your outlet properties into the .m file, to hide them from the other objects in your app.
@@ -22,6 +23,8 @@
 @property(nonatomic, weak) IBOutlet UILabel *longitudeLabel;
 @property(nonatomic, weak) IBOutlet UILabel *addressLabel;
 @property(nonatomic, weak) IBOutlet UILabel *dateLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet UILabel *photoLabel;
 
 @property(strong, nonatomic)NSDate *date;
 
@@ -165,6 +168,13 @@
 {
   if (indexPath.section == 0 && indexPath.row == 0) {
     return 88;
+  } else if (indexPath.section == 1) {
+    // If there is no image, then the height for the Add Photo cell is 44 points just like a regular cell. But if there is an image, then it’s a lot higher: 280 points. That is 260 points for the image view plus 10 points margin on the top and bottom.
+    if (self.imageView.hidden) {
+      return 44;
+    } else {
+      return 280;
+    }
   } else if (indexPath.section == 2 && indexPath.row == 2) {
     // 1. CGRect is a struct that describes a rectangle. A rectangle has an origin made up of an X, Y coordinate, and a size (width and height). The CGRectMake() function takes four values – x, y, width and height – and puts them into a new CGRect struct. The width value is 205 points, but the height is a whopping 10,000 points. That is done to make the rectangle tall enough to fit a lot of text.
     CGRect rect = CGRectMake(100, 10, 205, 10000);
@@ -276,6 +286,13 @@
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   if (indexPath.section == 0 && indexPath.row == 0) {
     [self.descriptionTextView becomeFirstResponder];
+  } else if (indexPath.section == 1 && indexPath.row == 0) {
+    // Before calling showPhotoMenu, you first deselect the Add Photo row. Try it out, it looks better this way. The cell background quickly fades from gray back to white as the action sheet slides into the screen.
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    // Uncomment this when live
+    // [self takePhoto];
+    // User this method when using the simulator
+    [self showPhotoMenu];
   }
 }
 
@@ -319,4 +336,81 @@
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)takePhoto {
+  // All you need to do is create a UIImagePickerController instance,
+  UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+  // set its properties to configure the picker, set its delegate, and then present it. When the user closes the image picker screen, the delegate methods will let you know what happened.
+  imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+  imagePicker.delegate = self;
+  // With this setting enabled, the user can do some quick editing on the photo before making his final choice.
+  imagePicker.allowsEditing = YES;
+  [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+// We create a choosePhotoLibrary method also because our simulator doesn have a camera, thus can use the takePhoto method
+- (void)choosePhotoFromLibrary {
+  UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+  imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+  imagePicker.delegate = self;
+  // With this setting enabled, the user can do some quick editing on the photo before making his final choice.
+  imagePicker.allowsEditing = YES;
+  [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+// gets called when the user has selected a photo in the image picker
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+  // The info dictionary contains a variety of data describing the image that the user picked.
+  // You use the UIImagePickerControllerEditedImage key to retrieve a UIImage object that contains the image from after the Move and Scale operation. (You can also get the original image if you wish.)
+  self.image = info[UIImagePickerControllerEditedImage];
+  // Once you have the image, the call to showImage puts it in the Add Photo cell. Note that you also store the image in the self.image instance variable so you can use it later.
+  [self showImage:self.image];
+  // The call to [self.tableView reloadData] refreshes the table view and sets the photo row to the proper height.
+  [self.tableView reloadData];
+  [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (void)imagePickerControllerDidCancel: (UIImagePickerController *)picker
+{
+  // simply remove the image picker from the screen.
+  [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UIActionSheetDelegate methods
+// First you check whether the camera is available. When it is, you show an action sheet to let the user choose between the camera and the Photo Library.
+- (void)showPhotoMenu {
+  // use UIImagePickerController’s isSourceTypeAvailable method to check whether there’s a camera present. If not, you call choosePhotoFromLibrary as that is the only option then. But when the device does have a camera you show a UIActionSheet on the screen. An action sheet works very much like an alert view, except that it slides in from the bottom of the screen.
+  if ([UIImagePickerController
+          isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                 initWithTitle:nil
+                      delegate:self
+             cancelButtonTitle:@"Cancel"
+        destructiveButtonTitle:nil
+             otherButtonTitles:@"Take Photo", @"Choose From Library", nil];
+    [actionSheet showInView:self.view];
+  } else {
+    [self choosePhotoFromLibrary];
+  }
+}
+
+#pragma mark - UIActionSheetDelegate
+
+// The button at index 0 is the Take Photo button and the button at index 1 is the Choose from Library button. There may be a small delay between pressing any of these buttons before the image picker appears but that’s because it’s a big component and iOS needs a few seconds to load it up.
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex == 0) {
+    [self takePhoto];
+  } else if (buttonIndex == 1) {
+    [self choosePhotoFromLibrary]; }
+}
+
+// This puts the image into the image view, makes the image view visible and gives it the proper dimensions. hides the Add Photo label because you don’t want it to overlap the image view.
+- (void)showImage:(UIImage *)image {
+  self.imageView.image = image;
+  self.imageView.hidden = NO;
+  self.imageView.frame = CGRectMake(10, 10, 260, 260);
+  self.photoLabel.hidden = YES;
+}
 @end
