@@ -39,13 +39,18 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Location"
                                               inManagedObjectContext:self.managedObjectContext]; [fetchRequest setEntity:entity];
   // The NSSortDescriptor tells the fetch request to sort on the date attribute, in ascending order. In order words, the Location objects that the user added first will be at the top of the list. You can sort on any attribute here (later in this tutorial you’ll sort on the Location’s category as well).
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    // Why 2 sort descriptors -- First this sorts the Location objects by category and inside each of these groups it sorts by date.
+    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"category" ascending:YES];
+    NSSortDescriptor *sortDescriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
+    [fetchRequest setSortDescriptors: @[sortDescriptor1, sortDescriptor2]];
+
     // If you have a huge table with hundreds of objects then it requires a lot of memory to keep all of these objects around, even though you can only see a handful of them at a time. The NSFetchedResultsController is pretty smart about this and will only fetch the objects that you can actually see, which cuts down on memory usage. This is all done in the background without you having to worry about it. The fetch batch size setting allows you to tweak how many objects will be fetched at a time.
     [fetchRequest setFetchBatchSize:20];
     // The cacheName needs to be a unique name that NSFetchedResultsController uses to cache the search results. It keeps this cache around even after your app quits, so the next time it starts up the fetch request is lightning fast, as the NSFetchedResultsController doesn’t have to make a round-trip to the database but can simply read from the cache.
+    // What is sectionNameKeyPath?
+    //  the fetched results controller will group the search results based on the value of the category attribute.
     _fetchedResultsController = [[NSFetchedResultsController alloc]
-                                 initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Locations"];
+                                 initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"category" cacheName:@"Locations"];
     _fetchedResultsController.delegate = self;
   }
   return _fetchedResultsController;
@@ -80,8 +85,20 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    return 1;
+  // Return the number of sections.
+  return [[self.fetchedResultsController sections] count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView
+  titleForHeaderInSection:
+        (NSInteger)section
+{
+  //  You ask the fetcher object for a list of the sections, which is an NSArray of NSFetchedResultsSectionInfo objects, and then look inside that array to find out how many sections there are and what their names are.
+  // What is this id<...> syntax?
+  // means that Core Data gives you an object that conforms to the NSFetchedResultsSectionInfo protocol. That protocol contains methods for obtaining the name of the section and the list of objects that belong to that section. You don’t need to care about the actual datatype of the sectionInfo variable, only that you can treat it as a NSFetchedResultsSectionInfo object.
+  id<NSFetchedResultsSectionInfo> sectionInfo =
+              [self.fetchedResultsController sections][section];
+  return [sectionInfo name];
 }
 
 
