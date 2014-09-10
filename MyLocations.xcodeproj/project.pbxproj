@@ -30,10 +30,10 @@
 		E9620A4219BE2F7500FF702E /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = E9620A4119BE2F7500FF702E /* Location.m */; };
 		E9620A4619BE4BD100FF702E /* LocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9620A4519BE4BD100FF702E /* LocationsViewController.m */; };
 		E9A02DCE19B8FF6700570C58 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A02DCD19B8FF6700570C58 /* CoreLocation.framework */; };
+		E9CAB18B19C0C9E400E9FEF0 /* CategoryPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CAB18A19C0C9E400E9FEF0 /* CategoryPickerViewController.m */; };
 		E9E02D7519C0B9BB007A1C66 /* MyTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E02D7419C0B9BB007A1C66 /* MyTabBarController.m */; };
 		E9E02D7919C0BA32007A1C66 /* MyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E02D7819C0BA32007A1C66 /* MyNavigationController.m */; };
 		E9E35B6B19BA1B8D00848955 /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E35B6A19BA1B8D00848955 /* LocationDetailsViewController.m */; };
-		E9E35B6F19BA361300848955 /* CategoryPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E35B6E19BA361300848955 /* CategoryPickerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,14 +81,14 @@
 		E9620A4419BE4BD100FF702E /* LocationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsViewController.h; sourceTree = "<group>"; };
 		E9620A4519BE4BD100FF702E /* LocationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsViewController.m; sourceTree = "<group>"; };
 		E9A02DCD19B8FF6700570C58 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		E9CAB18919C0C9E400E9FEF0 /* CategoryPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryPickerViewController.h; sourceTree = "<group>"; };
+		E9CAB18A19C0C9E400E9FEF0 /* CategoryPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryPickerViewController.m; sourceTree = "<group>"; };
 		E9E02D7319C0B9BB007A1C66 /* MyTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTabBarController.h; sourceTree = "<group>"; };
 		E9E02D7419C0B9BB007A1C66 /* MyTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabBarController.m; sourceTree = "<group>"; };
 		E9E02D7719C0BA32007A1C66 /* MyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNavigationController.h; sourceTree = "<group>"; };
 		E9E02D7819C0BA32007A1C66 /* MyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNavigationController.m; sourceTree = "<group>"; };
 		E9E35B6919BA1B8D00848955 /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailsViewController.h; sourceTree = "<group>"; };
 		E9E35B6A19BA1B8D00848955 /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailsViewController.m; sourceTree = "<group>"; };
-		E9E35B6D19BA361300848955 /* CategoryPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryPickerViewController.h; path = ../../../../../../../Documents/CategoryPickerViewController.h; sourceTree = "<group>"; };
-		E9E35B6E19BA361300848955 /* CategoryPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryPickerViewController.m; path = ../../../../../../../Documents/CategoryPickerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,8 +391,8 @@
 		E9E35B6C19BA35EE00848955 /* CategoryPicker */ = {
 			isa = PBXGroup;
 			children = (
-				E9E35B6D19BA361300848955 /* CategoryPickerViewController.h */,
-				E9E35B6E19BA361300848955 /* CategoryPickerViewController.m */,
+				E9CAB18919C0C9E400E9FEF0 /* CategoryPickerViewController.h */,
+				E9CAB18A19C0C9E400E9FEF0 /* CategoryPickerViewController.m */,
 			);
 			path = CategoryPicker;
 			sourceTree = "<group>";
@@ -504,7 +504,7 @@
 				E94E14E119B8F375004B01E5 /* main.m in Sources */,
 				E9620A3B19BE13B000FF702E /* HudView.m in Sources */,
 				E9620A4619BE4BD100FF702E /* LocationsViewController.m in Sources */,
-				E9E35B6F19BA361300848955 /* CategoryPickerViewController.m in Sources */,
+				E9CAB18B19C0C9E400E9FEF0 /* CategoryPickerViewController.m in Sources */,
 				E920DE4F19BFFD3D00D87BAA /* UIImage+Resize.m in Sources */,
 				E920DE4519BF68CF00D87BAA /* LocationCell.m in Sources */,
 				E9E35B6B19BA1B8D00848955 /* LocationDetailsViewController.m in Sources */,
