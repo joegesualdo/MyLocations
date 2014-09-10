@@ -135,6 +135,7 @@
 - (MKAnnotationView *)mapView:(MKMapView *)mapView
             viewForAnnotation:(id<MKAnnotation>)annotation {
   
+  
   // Because MKAnnotation is a protocol, there may be other objects than the Location object that want to be annotations on the map. An example is the blue dot that represents the user’s current location. You should leave such annotations alone, so you use the isKindOfClass: method to determine whether the annotation is really a Location object. If so, you continue.
   if ([annotation isKindOfClass:[Location class]]) {
     // This should look very familiar to creating a table view cell. You ask the map view to re-use an annotation view object. If it cannot find a recyclable annotation view, then you create a new one. Note that you’re not limited to MKPinAnnotationView. This is the standard annotation view class, but you can also create your own MKAnnotationView subclass and make it look like anything you want. Pins are only one option.
@@ -164,6 +165,10 @@
     // Once the annotation view is constructed and configured, you obtain a reference to that detail disclosure button again and set its tag to the index of the Location object in the _locations array. That way you can find the Location object later in the showLocationDetails: method when the button is pressed.
     UIButton *button = (UIButton *)annotationView.rightCalloutAccessoryView;
     button.tag = [self.locations indexOfObject:(Location *)annotation];
+    
+    // Change the color of the (i) button on the map annotation
+    annotationView.tintColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
+    
     return annotationView;
   }
   return nil;
