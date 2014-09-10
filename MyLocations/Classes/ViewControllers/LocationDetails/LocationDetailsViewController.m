@@ -76,6 +76,14 @@
   
   if (self.locationToEdit != nil) {
     self.title = @"Edit Location";
+    // If the Location that you’re editing has a photo, then this calls showImage: to display it in the photo cell.
+    if ([self.locationToEdit hasPhoto]) {
+      UIImage *existingImage = [self.locationToEdit photoImage];
+      // The call to if (existingImage != nil) is a bit of defensive programming. If hasPhoto is YES, then there should always be a valid image file present. But it’s possible to imagine a scenario where there isn’t, even though that should never happen. (The JPEG file could have been erased or corrupted.)
+      if (existingImage != nil) {
+        [self showImage:existingImage];
+      }
+    }
   }
 
   
@@ -228,6 +236,8 @@
     location = [NSEntityDescription
         insertNewObjectForEntityForName:@"Location"
                  inManagedObjectContext:self.managedObjectContext];
+    //  give new Location objects a photoId of -1 so that the hasPhoto method correctly recognizes that these Locations do not have a photo yet.
+    location.photoId = @-1;
   }
   
   // Once you have created the Location object, you can use it like any other object. Here you set its properties. Note that you convert the latitude and longitude into NSNumber objects using the @() notation. You don’t have to do anything special for the CLPlacemark object.
@@ -237,6 +247,23 @@
   location.longitude = @(self.coordinate.longitude);
   location.date = self.date;
   location.placemark = self.placemark;
+  
+  // only performed if image is not nil, in other words, when the user has picked a photo.
+  if (self.image != nil) {
+    //  You need to get a new ID and assign it to the Location’s photoId property, but only if you’re adding a photo to a Location that didn’t already have one. If a photo existed, you keep the same ID and overwrite the existing JPEG file. The @() is necessary to convert the ID, which is an NSInteger, into an NSNumber object.
+    if (![location hasPhoto]) {
+      location.photoId = @([Location nextPhotoId]);
+    }
+    // Here you write the UIImage object to a JPEG file. The UIImageJPEGRepresentation() function converts the UIImage into the JPEG format, and you save that to the path given by the photoPath method. (Also notice the use of the NSError pattern again.)
+    NSData *data = UIImageJPEGRepresentation(self.image, 0.5);
+    NSError *error;
+    if (![data writeToFile:[location photoPath]
+                   options:NSDataWritingAtomic
+                     error:&error]) {
+      NSLog(@"Error writing file: %@", error);
+    }
+  }
+  
   // You now have a new Location object whose properties are set to whatever the user entered in the screen, but if you were to look in the data store at this point you’d still see no objects there. That won’t happen until you save the context. This takes any objects that were added to the context, or any managed objects that had their contents changed, and permanently saves these changes into the data store. That’s why they call the context the “scratchpad”; its changes aren’t persisted until you save them.[
   NSError *error;
   // What if something goes wrong with the save? The save method returns NO and you call the abort() function. True to its name, abort() will immediately kill the app and return the user to the iPhone’s Springboard. That’s a nasty surprise for the user, and therefore not recommended.

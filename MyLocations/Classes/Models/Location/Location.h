@@ -25,4 +25,13 @@
 @property (nonatomic, retain) NSString * category;
 @property (nonatomic, retain) NSDate *date;
 
+// way to associate a Location object with that image file.
+@property (nonatomic, retain) NSNumber * photoId;
+
++ (NSInteger)nextPhotoId;
+- (BOOL)hasPhoto;
+- (NSString *)photoPath;
+- (UIImage *)photoImage;
+-(void)removePhotoFile;
+
 @end

@@ -81,8 +81,8 @@
 		E9A02DCD19B8FF6700570C58 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E9E35B6919BA1B8D00848955 /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailsViewController.h; sourceTree = "<group>"; };
 		E9E35B6A19BA1B8D00848955 /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailsViewController.m; sourceTree = "<group>"; };
-		E9E35B6D19BA361300848955 /* CategoryPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryPickerViewController.h; path = ../../../../../../Documents/CategoryPickerViewController.h; sourceTree = "<group>"; };
-		E9E35B6E19BA361300848955 /* CategoryPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryPickerViewController.m; path = ../../../../../../Documents/CategoryPickerViewController.m; sourceTree = "<group>"; };
+		E9E35B6D19BA361300848955 /* CategoryPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryPickerViewController.h; path = ../../../../../../../Documents/CategoryPickerViewController.h; sourceTree = "<group>"; };
+		E9E35B6E19BA361300848955 /* CategoryPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryPickerViewController.m; path = ../../../../../../../Documents/CategoryPickerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +117,7 @@
 				E920DE4319BF68CF00D87BAA /* LocationCell.h */,
 				E920DE4419BF68CF00D87BAA /* LocationCell.m */,
 			);
-			name = LocationCell;
+			path = LocationCell;
 			sourceTree = "<group>";
 		};
 		E920DE4819BF8ED800D87BAA /* MapView */ = {
@@ -126,7 +126,7 @@
 				E920DE4919BF8EF800D87BAA /* MapViewController.h */,
 				E920DE4A19BF8EF800D87BAA /* MapViewController.m */,
 			);
-			name = MapView;
+			path = MapView;
 			sourceTree = "<group>";
 		};
 		E94E14C819B8F375004B01E5 = {
@@ -332,7 +332,7 @@
 				E9620A3919BE13B000FF702E /* HudView.h */,
 				E9620A3A19BE13B000FF702E /* HudView.m */,
 			);
-			name = Hud;
+			path = Hud;
 			sourceTree = "<group>";
 		};
 		E9620A3F19BE2F3C00FF702E /* Location */ = {
@@ -341,7 +341,7 @@
 				E9620A4019BE2F7500FF702E /* Location.h */,
 				E9620A4119BE2F7500FF702E /* Location.m */,
 			);
-			name = Location;
+			path = Location;
 			sourceTree = "<group>";
 		};
 		E9620A4319BE4BAF00FF702E /* Locations */ = {
@@ -350,7 +350,7 @@
 				E9620A4419BE4BD100FF702E /* LocationsViewController.h */,
 				E9620A4519BE4BD100FF702E /* LocationsViewController.m */,
 			);
-			name = Locations;
+			path = Locations;
 			sourceTree = "<group>";
 		};
 		E9E35B6819BA1B5E00848955 /* LocationDetails */ = {
@@ -368,7 +368,7 @@
 				E9E35B6D19BA361300848955 /* CategoryPickerViewController.h */,
 				E9E35B6E19BA361300848955 /* CategoryPickerViewController.m */,
 			);
-			name = CategoryPicker;
+			path = CategoryPicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
