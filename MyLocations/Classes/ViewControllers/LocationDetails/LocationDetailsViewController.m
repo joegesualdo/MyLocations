@@ -25,6 +25,8 @@
 @property(nonatomic, weak) IBOutlet UILabel *dateLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UILabel *photoLabel;
+@property (nonatomic, strong) UIActionSheet *actionSheet;
+@property (nonatomic, strong)UIImagePickerController *imagePicker;
 
 @property(strong, nonatomic)NSDate *date;
 
@@ -40,8 +42,19 @@
     self.categoryName = @"No Category";
     //initialize a new date
     self.date = [NSDate date];
+    
+    // We  want a method to get called when app enters the background:
+    // You’ve seen in the Checklists tutorial that the AppDelegate is notified by the operating system when the app is about to go into the background, through its applicationDidEnterBackground method. View controllers don’t have such a method, but fortunately iOS sends out notifications through NSNotificationCenter that you can make the view controller listen to. Earlier you used the notification center to observe the notifications from Core Data. This time you’ll listen for the UIApplicationDidEnterBackgroundNotification.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidEnterBackground)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
   }
   return self;
+}
+
+- (void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 // ??? What's the difference betweeen initWithStyle and initWithCoder?
@@ -338,23 +351,23 @@
 
 - (void)takePhoto {
   // All you need to do is create a UIImagePickerController instance,
-  UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+  self.imagePicker = [[UIImagePickerController alloc] init];
   // set its properties to configure the picker, set its delegate, and then present it. When the user closes the image picker screen, the delegate methods will let you know what happened.
-  imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-  imagePicker.delegate = self;
+  self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+  self.imagePicker.delegate = self;
   // With this setting enabled, the user can do some quick editing on the photo before making his final choice.
-  imagePicker.allowsEditing = YES;
-  [self presentViewController:imagePicker animated:YES completion:nil];
+  self.imagePicker.allowsEditing = YES;
+  [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
 // We create a choosePhotoLibrary method also because our simulator doesn have a camera, thus can use the takePhoto method
 - (void)choosePhotoFromLibrary {
-  UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-  imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-  imagePicker.delegate = self;
+  self.imagePicker = [[UIImagePickerController alloc] init];
+  self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+  self.imagePicker.delegate = self;
   // With this setting enabled, the user can do some quick editing on the photo before making his final choice.
-  imagePicker.allowsEditing = YES;
-  [self presentViewController:imagePicker animated:YES completion:nil];
+  self.imagePicker.allowsEditing = YES;
+  [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -370,11 +383,14 @@
   // The call to [self.tableView reloadData] refreshes the table view and sets the photo row to the proper height.
   [self.tableView reloadData];
   [self dismissViewControllerAnimated:YES completion:nil];
+  self.imagePicker = nil;
 }
 - (void)imagePickerControllerDidCancel: (UIImagePickerController *)picker
 {
   // simply remove the image picker from the screen.
   [self dismissViewControllerAnimated:YES completion:nil];
+  
+  self.imagePicker = nil;
 }
 
 #pragma mark - UIActionSheetDelegate methods
@@ -383,13 +399,13 @@
   // use UIImagePickerController’s isSourceTypeAvailable method to check whether there’s a camera present. If not, you call choosePhotoFromLibrary as that is the only option then. But when the device does have a camera you show a UIActionSheet on the screen. An action sheet works very much like an alert view, except that it slides in from the bottom of the screen.
   if ([UIImagePickerController
           isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+    self.actionSheet = [[UIActionSheet alloc]
                  initWithTitle:nil
                       delegate:self
              cancelButtonTitle:@"Cancel"
         destructiveButtonTitle:nil
              otherButtonTitles:@"Take Photo", @"Choose From Library", nil];
-    [actionSheet showInView:self.view];
+    [self.actionSheet showInView:self.view];
   } else {
     [self choosePhotoFromLibrary];
   }
@@ -403,7 +419,9 @@
   if (buttonIndex == 0) {
     [self takePhoto];
   } else if (buttonIndex == 1) {
-    [self choosePhotoFromLibrary]; }
+    [self choosePhotoFromLibrary];
+  }
+  self.actionSheet = nil;
 }
 
 // This puts the image into the image view, makes the image view visible and gives it the proper dimensions. hides the Add Photo label because you don’t want it to overlap the image view.
@@ -412,5 +430,17 @@
   self.imageView.hidden = NO;
   self.imageView.frame = CGRectMake(10, 10, 260, 260);
   self.photoLabel.hidden = YES;
+}
+
+- (void)applicationDidEnterBackground {
+  // If there is an active image picker or action sheet, you dismiss it. This assumes you store references to those objects in instance variables.
+  if (self.imagePicker != nil) {
+    [self dismissViewControllerAnimated:NO completion:nil]; self.imagePicker = nil;
+  }
+  if (self.actionSheet != nil) {
+    [self.actionSheet dismissWithClickedButtonIndex:
+     self.actionSheet.cancelButtonIndex animated:NO]; self.actionSheet = nil;
+  }
+  [self.descriptionTextView resignFirstResponder];
 }
 @end
