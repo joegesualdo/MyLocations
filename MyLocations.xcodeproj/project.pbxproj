@@ -30,6 +30,8 @@
 		E9620A4219BE2F7500FF702E /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = E9620A4119BE2F7500FF702E /* Location.m */; };
 		E9620A4619BE4BD100FF702E /* LocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9620A4519BE4BD100FF702E /* LocationsViewController.m */; };
 		E9A02DCE19B8FF6700570C58 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A02DCD19B8FF6700570C58 /* CoreLocation.framework */; };
+		E9E02D7519C0B9BB007A1C66 /* MyTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E02D7419C0B9BB007A1C66 /* MyTabBarController.m */; };
+		E9E02D7919C0BA32007A1C66 /* MyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E02D7819C0BA32007A1C66 /* MyNavigationController.m */; };
 		E9E35B6B19BA1B8D00848955 /* LocationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E35B6A19BA1B8D00848955 /* LocationDetailsViewController.m */; };
 		E9E35B6F19BA361300848955 /* CategoryPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E35B6E19BA361300848955 /* CategoryPickerViewController.m */; };
 /* End PBXBuildFile section */
@@ -79,6 +81,10 @@
 		E9620A4419BE4BD100FF702E /* LocationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsViewController.h; sourceTree = "<group>"; };
 		E9620A4519BE4BD100FF702E /* LocationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsViewController.m; sourceTree = "<group>"; };
 		E9A02DCD19B8FF6700570C58 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		E9E02D7319C0B9BB007A1C66 /* MyTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTabBarController.h; sourceTree = "<group>"; };
+		E9E02D7419C0B9BB007A1C66 /* MyTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabBarController.m; sourceTree = "<group>"; };
+		E9E02D7719C0BA32007A1C66 /* MyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNavigationController.h; sourceTree = "<group>"; };
+		E9E02D7819C0BA32007A1C66 /* MyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNavigationController.m; sourceTree = "<group>"; };
 		E9E35B6919BA1B8D00848955 /* LocationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailsViewController.h; sourceTree = "<group>"; };
 		E9E35B6A19BA1B8D00848955 /* LocationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailsViewController.m; sourceTree = "<group>"; };
 		E9E35B6D19BA361300848955 /* CategoryPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryPickerViewController.h; path = ../../../../../../../Documents/CategoryPickerViewController.h; sourceTree = "<group>"; };
@@ -272,6 +278,8 @@
 		E94E151419B8F404004B01E5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E9E02D7619C0BA19007A1C66 /* MyNavigation */,
+				E9E02D7219C0B99A007A1C66 /* MyTabBar */,
 				E920DE4819BF8ED800D87BAA /* MapView */,
 				E9620A4319BE4BAF00FF702E /* Locations */,
 				E9E35B6C19BA35EE00848955 /* CategoryPicker */,
@@ -351,6 +359,24 @@
 				E9620A4519BE4BD100FF702E /* LocationsViewController.m */,
 			);
 			path = Locations;
+			sourceTree = "<group>";
+		};
+		E9E02D7219C0B99A007A1C66 /* MyTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				E9E02D7319C0B9BB007A1C66 /* MyTabBarController.h */,
+				E9E02D7419C0B9BB007A1C66 /* MyTabBarController.m */,
+			);
+			name = MyTabBar;
+			sourceTree = "<group>";
+		};
+		E9E02D7619C0BA19007A1C66 /* MyNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				E9E02D7719C0BA32007A1C66 /* MyNavigationController.h */,
+				E9E02D7819C0BA32007A1C66 /* MyNavigationController.m */,
+			);
+			name = MyNavigation;
 			sourceTree = "<group>";
 		};
 		E9E35B6819BA1B5E00848955 /* LocationDetails */ = {
@@ -469,8 +495,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9620A3E19BE2CDA00FF702E /* DataModel.xcdatamodeld in Sources */,
+				E9E02D7919C0BA32007A1C66 /* MyNavigationController.m in Sources */,
 				E94E14E519B8F375004B01E5 /* AppDelegate.m in Sources */,
 				E920DE4B19BF8EF800D87BAA /* MapViewController.m in Sources */,
+				E9E02D7519C0B9BB007A1C66 /* MyTabBarController.m in Sources */,
 				E94E14EB19B8F375004B01E5 /* CurrentLocationViewController.m in Sources */,
 				E9620A4219BE2F7500FF702E /* Location.m in Sources */,
 				E94E14E119B8F375004B01E5 /* main.m in Sources */,
