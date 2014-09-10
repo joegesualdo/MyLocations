@@ -479,13 +479,13 @@
                                 <rect key="frame" x="0.0" y="18" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Map" id="GWD-Hp-jQx">
-                                        <barButtonItem key="leftBarButtonItem" title="Locations" id="8f1-yj-bfs">
+                                    <navigationItem id="GWD-Hp-jQx">
+                                        <barButtonItem key="leftBarButtonItem" image="Pin" id="8f1-yj-bfs">
                                             <connections>
                                                 <action selector="showLocations" destination="tYo-Sw-0q6" id="8VW-ZB-fdM"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="User" id="SlQ-ps-2G1">
+                                        <barButtonItem key="rightBarButtonItem" image="User" id="SlQ-ps-2G1">
                                             <connections>
                                                 <action selector="showUser" destination="tYo-Sw-0q6" id="Iix-dm-Wzw"/>
                                             </connections>
@@ -513,7 +513,9 @@
     <resources>
         <image name="Locations" width="30" height="30"/>
         <image name="Map" width="30" height="30"/>
+        <image name="Pin" width="24" height="24"/>
         <image name="Tag" width="30" height="30"/>
+        <image name="User" width="24" height="24"/>
     </resources>
     <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
