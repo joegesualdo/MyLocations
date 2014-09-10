@@ -10,6 +10,7 @@
 		E920DE4519BF68CF00D87BAA /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E920DE4419BF68CF00D87BAA /* LocationCell.m */; };
 		E920DE4719BF8E1200D87BAA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E920DE4619BF8E1200D87BAA /* MapKit.framework */; };
 		E920DE4B19BF8EF800D87BAA /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E920DE4A19BF8EF800D87BAA /* MapViewController.m */; };
+		E920DE4F19BFFD3D00D87BAA /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = E920DE4E19BFFD3D00D87BAA /* UIImage+Resize.m */; };
 		E94E14D519B8F375004B01E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D419B8F375004B01E5 /* Foundation.framework */; };
 		E94E14D719B8F375004B01E5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D619B8F375004B01E5 /* CoreGraphics.framework */; };
 		E94E14D919B8F375004B01E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D819B8F375004B01E5 /* UIKit.framework */; };
@@ -50,6 +51,8 @@
 		E920DE4619BF8E1200D87BAA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E920DE4919BF8EF800D87BAA /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		E920DE4A19BF8EF800D87BAA /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		E920DE4D19BFFD3D00D87BAA /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		E920DE4E19BFFD3D00D87BAA /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		E94E14D119B8F375004B01E5 /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94E14D419B8F375004B01E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E94E14D619B8F375004B01E5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -127,6 +130,15 @@
 				E920DE4A19BF8EF800D87BAA /* MapViewController.m */,
 			);
 			path = MapView;
+			sourceTree = "<group>";
+		};
+		E920DE4C19BFFD1000D87BAA /* UIImage+Resize */ = {
+			isa = PBXGroup;
+			children = (
+				E920DE4D19BFFD3D00D87BAA /* UIImage+Resize.h */,
+				E920DE4E19BFFD3D00D87BAA /* UIImage+Resize.m */,
+			);
+			name = "UIImage+Resize";
 			sourceTree = "<group>";
 		};
 		E94E14C819B8F375004B01E5 = {
@@ -224,6 +236,7 @@
 		E94E150F19B8F3D4004B01E5 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				E920DE4C19BFFD1000D87BAA /* UIImage+Resize */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -478,6 +491,7 @@
 				E9620A3B19BE13B000FF702E /* HudView.m in Sources */,
 				E9620A4619BE4BD100FF702E /* LocationsViewController.m in Sources */,
 				E9E35B6F19BA361300848955 /* CategoryPickerViewController.m in Sources */,
+				E920DE4F19BFFD3D00D87BAA /* UIImage+Resize.m in Sources */,
 				E920DE4519BF68CF00D87BAA /* LocationCell.m in Sources */,
 				E9E35B6B19BA1B8D00848955 /* LocationDetailsViewController.m in Sources */,
 			);
