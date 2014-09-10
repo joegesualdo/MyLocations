@@ -19,7 +19,6 @@
 		E94E14E519B8F375004B01E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E94E14E419B8F375004B01E5 /* AppDelegate.m */; };
 		E94E14E819B8F375004B01E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E94E14E619B8F375004B01E5 /* Main.storyboard */; };
 		E94E14EB19B8F375004B01E5 /* CurrentLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E94E14EA19B8F375004B01E5 /* CurrentLocationViewController.m */; };
-		E94E14EE19B8F375004B01E5 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E94E14ED19B8F375004B01E5 /* SecondViewController.m */; };
 		E94E14F019B8F375004B01E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E94E14EF19B8F375004B01E5 /* Images.xcassets */; };
 		E94E14F719B8F375004B01E5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14F619B8F375004B01E5 /* XCTest.framework */; };
 		E94E14F819B8F375004B01E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E94E14D419B8F375004B01E5 /* Foundation.framework */; };
@@ -66,8 +65,6 @@
 		E94E14E719B8F375004B01E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E94E14E919B8F375004B01E5 /* CurrentLocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentLocationViewController.h; sourceTree = "<group>"; };
 		E94E14EA19B8F375004B01E5 /* CurrentLocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentLocationViewController.m; sourceTree = "<group>"; };
-		E94E14EC19B8F375004B01E5 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		E94E14ED19B8F375004B01E5 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		E94E14EF19B8F375004B01E5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E94E14F519B8F375004B01E5 /* MyLocationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyLocationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94E14F619B8F375004B01E5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -279,7 +276,6 @@
 				E9620A4319BE4BAF00FF702E /* Locations */,
 				E9E35B6C19BA35EE00848955 /* CategoryPicker */,
 				E9E35B6819BA1B5E00848955 /* LocationDetails */,
-				E94E151A19B8F494004B01E5 /* Second */,
 				E94E151919B8F490004B01E5 /* CurrentLocation */,
 			);
 			path = ViewControllers;
@@ -328,15 +324,6 @@
 				E94E14EA19B8F375004B01E5 /* CurrentLocationViewController.m */,
 			);
 			path = CurrentLocation;
-			sourceTree = "<group>";
-		};
-		E94E151A19B8F494004B01E5 /* Second */ = {
-			isa = PBXGroup;
-			children = (
-				E94E14EC19B8F375004B01E5 /* SecondViewController.h */,
-				E94E14ED19B8F375004B01E5 /* SecondViewController.m */,
-			);
-			path = Second;
 			sourceTree = "<group>";
 		};
 		E9620A3819BE139400FF702E /* Hud */ = {
@@ -481,7 +468,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E94E14EE19B8F375004B01E5 /* SecondViewController.m in Sources */,
 				E9620A3E19BE2CDA00FF702E /* DataModel.xcdatamodeld in Sources */,
 				E94E14E519B8F375004B01E5 /* AppDelegate.m in Sources */,
 				E920DE4B19BF8EF800D87BAA /* MapViewController.m in Sources */,
