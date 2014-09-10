@@ -67,6 +67,12 @@
   // Many apps have an Edit button in the navigation bar that triggers a mode that also lets you delete (and sometimes move) rows. This is extremely easy to add.
   // This is all you need to make the list editable
   self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  
+
+  // sets the background color for the table view
+  self.tableView.backgroundColor = [UIColor blackColor];
+  // set color of seperator lines on the table
+  self.tableView.separatorColor = [UIColor colorWithWhite:1.0f alpha:0.2f];
 }
 - (void)performFetch {
   // Now that you have the fetch request, you can tell the context to execute it. The executeFetchRequest method returns an NSArray with the sorted objects, or nil in case of an error. Since those errors shouldn’t really happen, you use the special macro to handle that situation.
@@ -99,7 +105,7 @@
   // means that Core Data gives you an object that conforms to the NSFetchedResultsSectionInfo protocol. That protocol contains methods for obtaining the name of the section and the list of objects that belong to that section. You don’t need to care about the actual datatype of the sectionInfo variable, only that you can treat it as a NSFetchedResultsSectionInfo object.
   id<NSFetchedResultsSectionInfo> sectionInfo =
               [self.fetchedResultsController sections][section];
-  return [sectionInfo name];
+  return [[sectionInfo name] uppercaseString];
 }
 
 
@@ -138,6 +144,33 @@
       return;
     }
   }
+}
+
+
+// THis is now you customize the design of the table headers
+// This is a UITableView delegate method. It gets called once for each section in the table view. Here you create a label for the section name, a 1-pixel high view that functions as a separator line, and a container view to hold these two subviews.
+- (UIView *)tableView:(UITableView *)tableView
+    viewForHeaderInSection:(NSInteger)section {
+  UILabel *label = [[UILabel alloc]
+      initWithFrame:CGRectMake(15.0f, tableView.sectionHeaderHeight - 14.0f,
+                               300.0f, 14.0f)];
+  label.font = [UIFont boldSystemFontOfSize:11.0f];
+  label.text = [tableView.dataSource tableView:tableView
+                       titleForHeaderInSection:section];
+  label.textColor = [UIColor colorWithWhite:1.0f alpha:0.4f];
+  label.backgroundColor = [UIColor clearColor];
+  UIView *separator = [[UIView alloc]
+      initWithFrame:CGRectMake(15.0f, tableView.sectionHeaderHeight - 0.5f,
+                               tableView.bounds.size.width - 15.0f, 0.5f)];
+  separator.backgroundColor = tableView.separatorColor;
+  UIView *view = [[UIView alloc]
+      initWithFrame:CGRectMake(0.0f, 0.0f, tableView.bounds.size.width,
+                               tableView.sectionHeaderHeight)];
+  view.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.85f];
+  [view addSubview:label];
+  [view addSubview:separator];
+  
+  return view;
 }
 /*
 // Override to support conditional editing of the table view.
@@ -220,7 +253,38 @@
       image = [image resizedImageWithBounds:CGSizeMake(52, 52)];
     }
   }
+  // If there is no image, we put a place holder there
+  if (image == nil) {
+    image = [UIImage imageNamed:@"No Photo"];
+  }
+  
   locationCell.photoImageView.image = image;
+  
+  
+  // Change appearance of cell
+  locationCell.backgroundColor = [UIColor blackColor];
+  locationCell.descriptionLabel.textColor = [UIColor whiteColor];
+  locationCell.descriptionLabel.highlightedTextColor =
+      locationCell.descriptionLabel.textColor;
+  locationCell.addressLabel.textColor = [UIColor colorWithWhite:1.0f alpha:0.4f];
+  locationCell.addressLabel.highlightedTextColor =
+      locationCell.addressLabel.textColor;
+  
+  // This is how you wold change the selection color (the color that appears when user clicks on cell
+  // This creates a new UIView that is filled a dark gray color. This new view is placed on top of the cell’s background when the user taps on the cell. It looks like this:
+  UIView *selectionView = [[UIView alloc] initWithFrame:CGRectZero];
+  selectionView.backgroundColor =
+  [UIColor colorWithWhite:1.0f alpha:0.2f];
+  locationCell.selectedBackgroundView = selectionView;
+  
+  // This gives the image view rounded corners with a radius that is equal to half the width of the image, which makes it a perfect circle.
+  locationCell.photoImageView.layer.cornerRadius =
+      locationCell.photoImageView.bounds.size.width / 2.0f;
+  // The clipsToBounds setting makes sure that the image view respects these rounded corners and does not draw outside them.
+  locationCell.photoImageView.clipsToBounds = YES;
+  //The separatorInset moves the separator lines between the cells a bit to the right so there are no lines between the thumbnail images.
+  locationCell.separatorInset = UIEdgeInsetsMake(0, 82, 0, 0);
+
 }
 
 // The dealloc method is invoked when this view controller is destroyed. It may not strictly be necessary to nil out the delegate here, but it’s a bit of defensive programming that won’t hurt. (Note that in this app the LocationsViewController will never actually be deallocated because it’s one of the top-level view controllers in the tab bar.)
@@ -287,5 +351,6 @@
   NSLog(@"*** controllerDidChangeContent");
   [self.tableView endUpdates];
 }
+
 
 @end
