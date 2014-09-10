@@ -141,7 +141,7 @@
 				E920DE4D19BFFD3D00D87BAA /* UIImage+Resize.h */,
 				E920DE4E19BFFD3D00D87BAA /* UIImage+Resize.m */,
 			);
-			name = "UIImage+Resize";
+			path = "UIImage+Resize";
 			sourceTree = "<group>";
 		};
 		E94E14C819B8F375004B01E5 = {
@@ -367,7 +367,7 @@
 				E9E02D7319C0B9BB007A1C66 /* MyTabBarController.h */,
 				E9E02D7419C0B9BB007A1C66 /* MyTabBarController.m */,
 			);
-			name = MyTabBar;
+			path = MyTabBar;
 			sourceTree = "<group>";
 		};
 		E9E02D7619C0BA19007A1C66 /* MyNavigation */ = {
@@ -376,7 +376,7 @@
 				E9E02D7719C0BA32007A1C66 /* MyNavigationController.h */,
 				E9E02D7819C0BA32007A1C66 /* MyNavigationController.m */,
 			);
-			name = MyNavigation;
+			path = MyNavigation;
 			sourceTree = "<group>";
 		};
 		E9E35B6819BA1B5E00848955 /* LocationDetails */ = {
