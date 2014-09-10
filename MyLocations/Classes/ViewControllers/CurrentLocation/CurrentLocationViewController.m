@@ -191,17 +191,50 @@
     [self configureGetButton]; }
 }
 
+// TODO: This is duplicated code (also located in LocationDetailsViewController. Refactor method into a seperate class
 - (NSString *)stringFromPlacemark:(CLPlacemark *)thePlacemark {
   // subThoroughfare    -- is the house number
   // thoroughfare       -- is the street name
   // locality           -- is the city
   // administrativeArea -- is the state or province
   // postalCode         -- is the zip code or postal code.
+  
+  
+  // Create a mutable string object with room for 100 characters, initially. The string will expand to make more room if necessary.
+  NSMutableString *line1 = [NSMutableString stringWithCapacity:100];
 
-  return [NSString stringWithFormat:@"%@ %@\n%@ %@ %@", thePlacemark.subThoroughfare,
-                       thePlacemark.thoroughfare, thePlacemark.locality,
-                       thePlacemark.administrativeArea,
-                       thePlacemark.postalCode];
+  // NSMutableString is a subclass of NSString, so all the regular NSString methods can be used here too, but appendString is new (there is also an appendFormat). If the placemark has a subThoroughfare, you add it to the string.
+  if (thePlacemark.subThoroughfare != nil) {
+    [line1 appendString:thePlacemark.subThoroughfare];
+  }
+  // Adding the thoroughfare is done similarly, but you also put a space between it and subThoroughfare so they don’t get glued together. If there was no subThoroughfare in the placemark, then you don’t want to add that space.
+  if (thePlacemark.thoroughfare != nil) {
+    if ([line1 length] > 0) {
+      [line1 appendString:@" "];
+    }
+    [line1 appendString:thePlacemark.thoroughfare];
+  }
+  // The same logic goes for the second line. This adds the locality, administrative area, and postal code, with spaces between them where appropriate.
+  NSMutableString *line2 = [NSMutableString stringWithCapacity:100];
+  if (thePlacemark.locality != nil) {
+    [line2 appendString:thePlacemark.locality];
+  }
+  if (thePlacemark.administrativeArea != nil) {
+    if ([line2 length] > 0) {
+      [line2 appendString:@" "];
+    }
+    [line2 appendString:thePlacemark.administrativeArea];
+  }
+  if (thePlacemark.postalCode != nil) {
+    if ([line2 length] > 0) {
+      [line2 appendString:@" "];
+    }
+    [line2 appendString:thePlacemark.postalCode];
+  }
+  // Finally, the two lines are concatenated (added together) with a newline character in between.
+  [line1 appendString:@"\n"];
+  [line1 appendString:line2];
+  return line1;
 }
 
 #pragma mark - CLLocationManagerDelegate
