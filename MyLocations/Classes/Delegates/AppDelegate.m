@@ -21,6 +21,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  // run this method which setups the appearance
+  [self customizeAppearance];
   // Since we want to set a property on the CurrentViewController we have to look up these view controllers by digging through the storyboard. So in order to get a reference to the CurrentLocationViewController you first have to find the UITabBarController and then look at its viewControllers array.
   UITabBarController *tabBarController =
       (UITabBarController *)self.window.rootViewController;
@@ -119,6 +121,18 @@
     }
   }
   return _managedObjectContext;
+}
+
+// This changes the “bar tint” or background color of all navigation bars and tab bars in the app to black in one fell swoop. It also sets the color of the navigation bar’s title label to white.
+- (void)customizeAppearance {
+  // Keep in mind that the bar tint is not the true background color. The bars are still translucent, which is why they appear as a medium gray rather than pure black. That’s a bit of a problem on the main screen, where the dark gray tab bar still stands out too much:
+  [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+  [[UINavigationBar appearance]
+      setTitleTextAttributes:@{
+                               NSForegroundColorAttributeName :
+                                   [UIColor whiteColor],
+                             }];
+  [[UITabBar appearance] setBarTintColor:[UIColor blackColor]];
 }
 
 @end

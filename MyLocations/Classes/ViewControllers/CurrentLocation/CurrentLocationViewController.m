@@ -9,7 +9,7 @@
 #import "CurrentLocationViewController.h"
 #import "LocationDetailsViewController.h"
 
-@interface CurrentLocationViewController ()
+@interface CurrentLocationViewController () <UITabBarControllerDelegate>
 
 @end
 
@@ -20,6 +20,10 @@
   [self updateLabels];
   [self configureGetButton];
   // Do any additional setup after loading the view, typically from a nib.
+  
+  // tell the tab bar that the view controller is its delegate
+  self.tabBarController.delegate = self;
+  self.tabBarController.tabBar.translucent = NO;
 }
 
 //  This create The CLLocationManager property  and CLGeoder property
@@ -389,6 +393,16 @@
        [self configureGetButton];
       }
   }
+}
+
+#pragma mark - UITabBarControllerDelegate
+
+// This method gets called when the user switches tabs.
+- (BOOL)tabBarController:(UITabBarController *)tabBarController
+    shouldSelectViewController:(UIViewController *)viewController {
+  // It sets the tab bar’s translucent property to YES if the newly selected view controller is not self, in other words if the Locations or Map screen becomes active. However, if the Current Location screen is the active tab, translucent becomes NO, making the tab bar pitch black.
+  tabBarController.tabBar.translucent = (viewController != self);
+  return YES;
 }
 
 
