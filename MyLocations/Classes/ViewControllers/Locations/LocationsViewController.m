@@ -212,6 +212,11 @@
     locationCell.addressLabel.text = [NSString stringWithFormat:
                                       @"Lat: %.8f, Long: %.8f", [location.latitude doubleValue], [location.longitude doubleValue]];
   }
+  UIImage *image = nil;
+  if ([location hasPhoto]) {
+    image = [location photoImage];
+  }
+  locationCell.photoImageView.image = image;
 }
 
 // The dealloc method is invoked when this view controller is destroyed. It may not strictly be necessary to nil out the delegate here, but it’s a bit of defensive programming that won’t hurt. (Note that in this app the LocationsViewController will never actually be deallocated because it’s one of the top-level view controllers in the tab bar.)
